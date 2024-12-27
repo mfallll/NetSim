@@ -3,12 +3,6 @@
 
 #include "package.hpp"
 #include <list>
-#include <cstddef>
-
-// Biblioteka <vector> zawiera definicjÄ™ szablonu klasy `std::vector`.
-#include <vector>
-
-#include <string>
 
 
 enum class PackageQueueType {
@@ -40,6 +34,30 @@ class IPackageQueue : public IPackageStockpile {
     virtual PackageQueueType get_queue_type() const = 0;
 
     ~IPackageQueue() override = default;
+};
+
+class PackageQueue : public IPackageQueue {
+    public:
+
+    PackageQueue(PackageQueueType queuetype) : queue_(), queuetype_(queuetype) {}
+
+    void push(Package&& package) override { queue_.emplace_back(std::move(package)); }
+    std::size_t size() const override { return queue_.size(); }
+
+    //iteratory
+    const_iterator begin() const override { return queue_.cbegin(); }
+    const_iterator end() const override { return queue_.cend(); }
+    const_iterator cbegin() const override { return queue_.cbegin(); }
+    const_iterator cend() const override {return queue_.cend(); }
+
+    Package pop() override;
+
+    PackageQueueType get_queue_type() const override { return queuetype_; }
+
+    private:
+
+    std::list<Package> queue_;
+    PackageQueueType queuetype_;
 }
 
 #endif //STORAGE_TYPES_HPP
