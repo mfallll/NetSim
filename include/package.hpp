@@ -1,5 +1,10 @@
+#ifndef PACKAGE_HPP
+#define PACKAGE_HPP
+
 #include "types.hpp"
 #include <set>
+
+//TO DO: MARTYNA
 
 class Package {
 public:
@@ -14,3 +19,5 @@ private:
     static std::set<ElementID> assigned_IDs_;
     static std::set<ElementID> freed_IDs_;
 };
+
+#endif //PACKAGE_HPP
