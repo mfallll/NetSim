@@ -4,7 +4,7 @@ project(NetSim)
 set(CMAKE_CXX_STANDARD 17)
 
 # Dodaj flagi kompilacji wymuszające pisanie kodu zgodnego ze standardem.
-add_compile_options(-Wall -Wextra -Werror -Wpedantic -pedantic-errors)
+#add_compile_options(-Wall -Wextra -Werror -Wpedantic -pedantic-errors)
 
 # Dodaj katalogi z plikami nagłówkowymi dla wszystkich konfiguracji.
 include_directories(

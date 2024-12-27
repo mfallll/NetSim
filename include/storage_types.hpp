@@ -50,6 +50,8 @@ class PackageQueue : public IPackageQueue {
     const_iterator cbegin() const override { return queue_.cbegin(); }
     const_iterator cend() const override {return queue_.cend(); }
 
+    bool empty() const override { return queue_.empty(); }
+
     Package pop() override;
 
     PackageQueueType get_queue_type() const override { return queuetype_; }
