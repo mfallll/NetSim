@@ -1,3 +1,6 @@
+#ifndef STORAGE_TYPES_HPP
+#define STORAGE_TYPES_HPP
+
 enum class PackageQueueType {
     FIFO,
     LIFO
@@ -6,3 +9,5 @@ enum class PackageQueueType {
 class IPackageStockpile {
 
 };
+
+#endif //STORAGE_TYPES_HPP
