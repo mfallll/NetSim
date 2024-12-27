@@ -12,11 +12,11 @@ set(SOURCE_FILES
 
 add_executable(NetSim ${SOURCE_FILES} main.cpp)
 
-#set(SOURCES_FILES_TESTS
-#        test/test_package.cpp
-#)
-#
-#add_executable(NetSim_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)
+set(SOURCES_FILES_TESTS
+        test/test_package.cpp
+)
+
+add_executable(NetSim_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} main.cpp)
 
 #add_executable(NetSim main.cpp
 #        include/package.hpp
