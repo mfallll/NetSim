@@ -58,6 +58,6 @@ class PackageQueue : public IPackageQueue {
 
     std::list<Package> queue_;
     PackageQueueType queuetype_;
-}
+};
 
 #endif //STORAGE_TYPES_HPP
