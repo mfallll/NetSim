@@ -9,21 +9,21 @@ Package::Package() {
     }
     else if (!freed_IDs.empty()) {
         id_ = *freed_IDs.begin();
-        freed_IDs.erase(*freed_IDs.begin())
+        freed_IDs.erase(*freed_IDs.begin());
     }
     else if (!assigned_IDs.empty()) {
-        id_ = assigned_IDs.end() + 1;
+        id_ = *assigned_IDs.end() + 1;
     }
-    assigned_IDs.insert(id_)
+    assigned_IDs.insert(id_);
 }
 
 Package &Package::operator=(Package &&package) noexcept {
     if (this == &package)
         return *this;
-    assigned_IDs.erase(this->ID_);
-    freed_IDs.insert(this->ID_);
-    this->ID_ = package.ID_;
-    assigned_IDs.insert(this->ID_);
+    assigned_IDs.erase(this->id_);
+    freed_IDs.insert(this->id_);
+    this->id_ = package.id_;
+    assigned_IDs.insert(this->id_);
     return *this;
 }
 
