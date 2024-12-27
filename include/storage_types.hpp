@@ -56,6 +56,8 @@ class PackageQueue : public IPackageQueue {
 
     PackageQueueType get_queue_type() const override { return queuetype_; }
 
+    ~PackageQueue() override = default;
+
     private:
 
     std::list<Package> queue_;
