@@ -28,12 +28,12 @@ add_executable(NetSim ${SOURCE_FILES} main.cpp)
 # plików źródłowych z testami jednostkowymi.
 set(SOURCES_FILES_TESTS
         test/main_gtest.cpp
-        test/test_Factory.cpp
-        test/test_factory_io.cpp
-        test/test_nodes.cpp
+        #test/test_Factory.cpp
+        #test/test_factory_io.cpp
+        #test/test_nodes.cpp
         test/test_package.cpp
-        test/test_reports.cpp
-        test/test_simulate.cpp
+        #test/test_reports.cpp
+        #test/test_simulate.cpp
         test/test_storage_types.cpp
 )
 

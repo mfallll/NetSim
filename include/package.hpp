@@ -9,15 +9,15 @@
 class Package {
 public:
     Package();
-    Package(ElementID id) : id_(id) {};
-    Package(Package &&package) : id_(package.id_) {};
-    Package &operator=(Package &&package);
-    ElementID get_id() { return id_; }
+    explicit Package(ElementID id) : id_(id) {};
+    Package(Package &&package) noexcept : id_(package.id_) {};
+    Package &operator=(Package &&package) noexcept;
+    ElementID get_id() const { return id_; }
     ~Package();
 private:
     ElementID id_;
-    static std::set<ElementID> assigned_IDs_;
-    static std::set<ElementID> freed_IDs_;
+    static std::set<ElementID> assigned_IDs;
+    static std::set<ElementID> freed_IDs;
 };
 
 #endif //PACKAGE_HPP
