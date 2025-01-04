@@ -54,6 +54,11 @@ Time Worker::get_package_processing_start_time() {
     return 0;
 }
 
+void Worker::receive_package(Package &&p) {
+
+}
+
+
 void PackageSender::send_package() {
     IPackageReceiver * receiver;
     if (buffer_) {
@@ -74,3 +79,6 @@ void Ramp::deliver_goods(Time t) {
     }
 }
 
+void Storehouse::receive_package(Package &&p) {
+
+}

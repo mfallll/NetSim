@@ -14,7 +14,7 @@
 class IPackageReceiver {
     public:
     virtual void receive_package(Package&& p) = 0;
-    virtual void get_id() const = 0;
+    virtual ElementID get_id() const = 0;
     virtual ~IPackageReceiver() = default;
     //dodana część z 'poprawy' zadania, ale idk kiedy mamy to faktycznie zrobić? nie podoba mi się to, że to zadanie ma fabułę XDDDDDDD
 
@@ -71,11 +71,14 @@ private:
     Time t_;
 };
 
-class Worker{
+class Worker : public IPackageReceiver, public PackageSender{
 public:
     Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q);
+
+    void receive_package(Package&& p);
+    ElementID get_id() const override {return id_; };
     void do_work(Time t);
-    TimeOffset get_processing_duration(){return pd_;}
+    TimeOffset get_processing_duration() const {return pd_;}
     Time get_package_processing_start_time();
 
 private:
@@ -84,5 +87,14 @@ private:
     std::unique_ptr<IPackageQueue> q_;
 };
 
+class Storehouse : public IPackageReceiver{
+public:
+    Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d) : id_(id), d_(std::move(d)) {}
+    void receive_package(Package&& p) override;
+    ElementID get_id() const override {return id_; }
 
+private:
+    ElementID id_;
+    std::unique_ptr<IPackageStockpile> d_;
+};
 #endif //NODES_HPP_
