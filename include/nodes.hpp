@@ -67,6 +67,8 @@ public:
 private:
     ElementID id_;
     TimeOffset di_;
+    std::optional<Package> buffer_ = std::nullopt;
+    Time t_;
 };
 
 class Worker{
