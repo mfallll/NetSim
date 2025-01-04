@@ -4,10 +4,8 @@
 #include <functional>
 
 using ElementID = int;
-
-/*idk jakiego typu ma być czas tutaj, można poprawić*/
-using Time = int;
-using TimeOffset = int;
+using Time = double;
+using TimeOffset = double;
 
 using ProbabilityGenerator = std::function<double()>;
 

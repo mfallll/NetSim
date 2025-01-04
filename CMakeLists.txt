@@ -19,7 +19,8 @@ set(SOURCE_FILES
 
         # Chyba powinny być załączone, ale to się sprawdzi jeszcze XD
         src/nodes.cpp
-        src/storage_types.cpp
+        src/helpers.cpp
+
 )
 
 # Dodaj konfigurację typu `Debug`.

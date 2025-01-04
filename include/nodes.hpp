@@ -10,12 +10,16 @@
 #include <memory>
 #include <map>
 #include <optional>
+#include <functional>
 
 class IPackageReceiver {
     public:
     virtual void receive_package(Package&& p) = 0;
     virtual ElementID get_id() const = 0;
     virtual ~IPackageReceiver() = default;
+
+    // Chłopaki tu mają iteratory
+
     //dodana część z 'poprawy' zadania, ale idk kiedy mamy to faktycznie zrobić? nie podoba mi się to, że to zadanie ma fabułę XDDDDDDD
 
     #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
@@ -28,7 +32,7 @@ class ReceiverPreferences {
     using preferences_t = std::map<IPackageReceiver*, double>;
     using const_iterator = preferences_t::const_iterator;
 
-    ReceiverPreferences(ProbabilityGenerator pg = probability_generator) : probabilty_(pg) {};
+    ReceiverPreferences(ProbabilityGenerator pg = probability_generator) : probabilty_(std::move(pg)) {};
     void add_receiver(IPackageReceiver* r);
     void remove_receiver(IPackageReceiver* r);
     IPackageReceiver* choose_receiver();
@@ -75,23 +79,24 @@ class Worker : public IPackageReceiver, public PackageSender{
 public:
     Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q);
 
-    void receive_package(Package&& p);
-    ElementID get_id() const override {return id_; };
+    void receive_package(Package &&p) override {q_->push(std::move(p));}
+    [[nodiscard]] ElementID get_id() const override {return id_; };
     void do_work(Time t);
-    TimeOffset get_processing_duration() const {return pd_;}
+    [[nodiscard]] TimeOffset get_processing_duration() const {return pd_;}
     Time get_package_processing_start_time();
 
 private:
     ElementID id_;
     TimeOffset pd_;
     std::unique_ptr<IPackageQueue> q_;
+    Time t_ = -1;
 };
 
 class Storehouse : public IPackageReceiver{
 public:
-    Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d) : id_(id), d_(std::move(d)) {}
+    explicit Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d = std::make_unique<PackageQueue>(PackageQueueType::FIFO)) : id_(id), d_(std::move(d)) {}
     void receive_package(Package&& p) override;
-    ElementID get_id() const override {return id_; }
+    [[nodiscard]] ElementID get_id() const override {return id_; }
 
 private:
     ElementID id_;

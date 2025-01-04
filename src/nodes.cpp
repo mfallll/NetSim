@@ -25,8 +25,8 @@ void ReceiverPreferences::remove_receiver(IPackageReceiver *r){
 }
 
 IPackageReceiver* ReceiverPreferences::choose_receiver(){
-    auto probability = probabilty_;
-    if (probability>=0 && probability<=1){ // Tutaj trzeba poprawić: probability - std::functional, a 0 to int
+    auto probability = probabilty_();
+    if (probability >= 0 && probability <= 1){
         double distribution = 0.00;
         for (auto &pref : preferences_){
             distribution +=pref.second;
@@ -42,21 +42,21 @@ Worker::Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q) :
 id_(id),
 pd_(pd),
 q_(std::move(q))
-{
-
-}
+{}
 
 void Worker::do_work(Time t) {
-
+    if(t + pd_ > t_ || t_ == -1){
+        if(!q_->empty()) {
+            push_package(q_->pop());
+            t_ = t;
+        }
+    }
 }
 
 Time Worker::get_package_processing_start_time() {
-    return 0;
+    return t_;
 }
 
-void Worker::receive_package(Package &&p) {
-
-}
 
 
 void PackageSender::send_package() {
@@ -80,5 +80,5 @@ void Ramp::deliver_goods(Time t) {
 }
 
 void Storehouse::receive_package(Package &&p) {
-
+    d_->push(std::move(p));
 }
