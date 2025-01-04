@@ -89,7 +89,7 @@ private:
     ElementID id_;
     TimeOffset pd_;
     std::unique_ptr<IPackageQueue> q_;
-    Time t_ = -1;
+    Time t_ = 0;
 };
 
 class Storehouse : public IPackageReceiver{

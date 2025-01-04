@@ -45,10 +45,18 @@ q_(std::move(q))
 {}
 
 void Worker::do_work(Time t) {
-    if(t + pd_ > t_ || t_ == -1){
-        if(!q_->empty()) {
+    if(!get_sending_buffer().has_value()){
+        if(!q_->empty()){
             push_package(q_->pop());
             t_ = t;
+        }
+    }else{
+        if(t >= t_+ pd_ ) {
+            send_package();
+            if(!q_->empty()){
+                push_package(q_->pop());
+                t_ = t;
+            }
         }
     }
 }

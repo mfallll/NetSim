@@ -25,14 +25,29 @@ TEST(WorkerTest, HasBuffer) {
 
     w.receive_package(Package(1));
     w.do_work(t);
+    auto& buffer1 = w.get_sending_buffer();
+    ASSERT_TRUE(buffer1.has_value());
+    EXPECT_EQ(buffer1.value().get_id(), 1);
+
     ++t;
     w.receive_package(Package(2));
     w.do_work(t);
-    auto& buffer = w.get_sending_buffer();
 
-    ASSERT_TRUE(buffer.has_value());
-    EXPECT_EQ(buffer.value().get_id(), 1);
+
+    auto& buffer2 = w.get_sending_buffer();
+    ASSERT_TRUE(buffer2.has_value());
+    EXPECT_EQ(buffer2.value().get_id(), 1);
+
+    ++t;
+    w.receive_package(Package(3));
+    w.do_work(t);
+
+//    auto& buffer3 = w.get_sending_buffer();
+//    ASSERT_TRUE(buffer3.has_value());
+//    EXPECT_EQ(buffer3.value().get_id(), 2);
 }
+
+
 
 // -----------------
 
