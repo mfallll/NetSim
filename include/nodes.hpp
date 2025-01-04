@@ -7,6 +7,8 @@
 #include "package.hpp"
 #include "helpers.hpp"
 #include "storage_types.hpp"
+#include <memory>
+#include <map>
 
 class IPackageReceiver {
     public:
@@ -41,5 +43,19 @@ class ReceiverPreferences {
     preferences_t preferences_;
     ProbabilityGenerator probabilty_;
 };
+
+class Worker{
+public:
+    Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q);
+    void do_work(Time t);
+    TimeOffset get_processing_duration(){return pd_;}
+    Time get_package_processing_start_time();
+
+private:
+    ElementID id_;
+    TimeOffset pd_;
+    std::unique_ptr<IPackageQueue> q_;
+};
+
 
 #endif //NODES_HPP_
