@@ -9,6 +9,7 @@
 #include "storage_types.hpp"
 #include <memory>
 #include <map>
+#include <optional>
 
 class IPackageReceiver {
     public:
@@ -42,6 +43,30 @@ class ReceiverPreferences {
     private:
     preferences_t preferences_;
     ProbabilityGenerator probabilty_;
+};
+
+class PackageSender {
+public:
+    ReceiverPreferences receiver_preferences_;
+    PackageSender() = default;
+    PackageSender(PackageSender &&package_sender) = default;
+    void send_package();
+    const std::optional<Package>& get_sending_buffer() const { return buffer_; }
+protected:
+    void push_package(Package &&package) { buffer_.emplace(package.get_id()); }
+private:
+    std::optional<Package> buffer_ = std::nullopt;
+};
+
+class Ramp : public PackageSender {
+public:
+    Ramp(ElementID id, TimeOffset di) : PackageSender(), id_(id), di_(di) {}
+    void deliver_goods(Time t);
+    TimeOffset get_delivery_interval() const { return di_; }
+    ElementID get_id() const { return id_; }
+private:
+    ElementID id_;
+    TimeOffset di_;
 };
 
 class Worker{
