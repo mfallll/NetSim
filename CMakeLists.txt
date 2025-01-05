@@ -9,6 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Dodaj katalogi z plikami nagłówkowymi dla wszystkich konfiguracji.
 include_directories(
         include
+        googletest-master/googletest/include
 )
 
 # Ustaw zmienną `SOURCE_FILES`, która będzie przechowywać ścieżki do

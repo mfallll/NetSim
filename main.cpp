@@ -1,15 +1,16 @@
-/*#include "gtest/gtest.h"
+///*
+#include "gtest/gtest.h"
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-*/
+//*/
 
 
-#include <stdio.h>
-
-int main() {
-    printf("hejka naklejka");
-    return 0;
-}
+//#include <stdio.h>
+//
+//int main() {
+//    printf("hejka naklejka");
+//    return 0;
+//}

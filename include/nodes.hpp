@@ -14,11 +14,18 @@
 
 class IPackageReceiver {
     public:
+    //IPackageReceiver(IPackageReceiver& p) = default;
+//    IPackageReceiver(IPackageReceiver&& p) = default;
     virtual void receive_package(Package&& p) = 0;
     virtual ElementID get_id() const = 0;
-    virtual ~IPackageReceiver() = default;
 
-    // Chłopaki tu mają iteratory
+
+    virtual IPackageStockpile::const_iterator cbegin() const = 0;
+    virtual IPackageStockpile::const_iterator cend() const = 0;
+    virtual IPackageStockpile::const_iterator begin() const = 0;
+    virtual IPackageStockpile::const_iterator end() const = 0;
+
+    virtual ~IPackageReceiver() = default;
 
     //dodana część z 'poprawy' zadania, ale idk kiedy mamy to faktycznie zrobić? nie podoba mi się to, że to zadanie ma fabułę XDDDDDDD
 
@@ -85,6 +92,11 @@ public:
     [[nodiscard]] TimeOffset get_processing_duration() const {return pd_;}
     Time get_package_processing_start_time();
 
+    IPackageStockpile::const_iterator cbegin() const override {return q_->cbegin(); }
+    IPackageStockpile::const_iterator cend() const override {return q_->cend(); }
+    IPackageStockpile::const_iterator begin() const override {return q_->begin(); }
+    IPackageStockpile::const_iterator end() const override {return q_->end(); }
+
 private:
     ElementID id_;
     TimeOffset pd_;
@@ -94,9 +106,15 @@ private:
 
 class Storehouse : public IPackageReceiver{
 public:
-    explicit Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d = std::make_unique<PackageQueue>(PackageQueueType::FIFO)) : id_(id), d_(std::move(d)) {}
+    Storehouse(ElementID id)  : id_(id), d_(new PackageQueue(PackageQueueType::FIFO)) {}
+    Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d) : id_(id), d_(std::move(d)) {}
     void receive_package(Package&& p) override;
     [[nodiscard]] ElementID get_id() const override {return id_; }
+
+    IPackageStockpile::const_iterator cbegin() const override {return d_->cbegin(); }
+    IPackageStockpile::const_iterator cend() const override {return d_->cend(); }
+    IPackageStockpile::const_iterator begin() const override {return d_->begin(); }
+    IPackageStockpile::const_iterator end() const override {return d_->end(); }
 
 private:
     ElementID id_;

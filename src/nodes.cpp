@@ -47,14 +47,15 @@ q_(std::move(q))
 void Worker::do_work(Time t) {
     if(!get_sending_buffer().has_value()){
         if(!q_->empty()){
-            push_package(q_->pop());
+            push_package(std::move(q_->pop()));
             t_ = t;
+
         }
     }else{
         if(t >= t_+ pd_ ) {
             send_package();
             if(!q_->empty()){
-                push_package(q_->pop());
+                push_package(std::move(q_->pop()));
                 t_ = t;
             }
         }
@@ -69,9 +70,9 @@ Time Worker::get_package_processing_start_time() {
 
 void PackageSender::send_package() {
     IPackageReceiver * receiver;
-    if (buffer_) {
+    if (buffer_.has_value()) {
         receiver = receiver_preferences_.choose_receiver();
-        receiver->receive_package(std::move(*buffer_));
+        receiver->receive_package(std::move(buffer_.value()));
         buffer_.reset();
     }
 }
