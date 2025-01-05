@@ -1,15 +1,15 @@
 #include "nodes.hpp"
 
 void ReceiverPreferences::add_receiver(IPackageReceiver *r){
-    int size = preferences_.size();
+    unsigned long long size = preferences_.size();
     if (size == 0){
         preferences_[r] = 1;
     }
     else{
         for (auto &pref : preferences_){
-            pref.second = 1/(size+1);
+            pref.second = (double) 1/(size+1) ;
         }
-    preferences_[r] = 1/(size+1);
+    preferences_[r] = (double) 1/(size+1);
     }
 
 }
