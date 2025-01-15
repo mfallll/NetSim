@@ -92,6 +92,8 @@ public:
     [[nodiscard]] TimeOffset get_processing_duration() const {return pd_;}
     Time get_package_processing_start_time();
 
+    IPackageQueue* get_queue(void) const {return q_.get(); };
+
     IPackageStockpile::const_iterator cbegin() const override {return q_->cbegin(); }
     IPackageStockpile::const_iterator cend() const override {return q_->cend(); }
     IPackageStockpile::const_iterator begin() const override {return q_->begin(); }
