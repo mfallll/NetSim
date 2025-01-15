@@ -16,7 +16,7 @@
 #include <stack>
 
 
-#include <vector> // Przykład z std::vector jako std_container_t
+#include <vector> // Przykład z std::vector jako std_container_t xd
 
 template <typename Node, template <typename> class std_container_t = std::vector>
 class NodeCollection {
