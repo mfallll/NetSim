@@ -7,7 +7,17 @@
 #include "helpers.hpp"
 #include "storage_types.hpp"
 
-class factory{
+#include <sstream>
+#include <iostream>
+#include <vector>
+#include <map>
+
+struct ParsedLineData{
+    ElementType elementtype;
+    std::map<std::string, std::string> parameters;
+};
+
+class Factory{
     factory();
     bool is_consistent(); // Sprawdzenie spójnosci
     void do_deliveries(); // Odwolanie do rampy
@@ -15,6 +25,10 @@ class factory{
     void do_work(); //
 };
 
+ParsedLineData parse_line(string line);
 
+Factory load_factory_structure(std::istream& is);
+
+void save_factory_structure(Factory& factory, std::ostream& os);
 
 #endif // FACTORY_HPP_
