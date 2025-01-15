@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <stack>
 
 enum class ElementType{
     RAMP, WORKER, STOREHOUSE, LINK
