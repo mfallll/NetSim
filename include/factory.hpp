@@ -12,6 +12,13 @@
 #include <vector>
 #include <map>
 
+enum class ElementType{
+    RAMP,
+    WORKER,
+    STOREHOUSE,
+    LINK
+};
+
 struct ParsedLineData{
     ElementType element_type;
     std::map<std::string, std::string> parameters;
