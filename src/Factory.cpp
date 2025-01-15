@@ -35,3 +35,5 @@ void Factory::do_package_passing() {
 void Factory::do_work() {
 
 }
+
+Factory load_factory_structure(std::istream& is);
