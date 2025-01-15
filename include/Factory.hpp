@@ -34,13 +34,15 @@ public:
 
     void add(const Node&& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
-    iterator find_by_id(ElementID id);
-    const_iterator find_by_id(ElementID id) const;
+    iterator find_by_id(ElementID id) { std::find_if(nodes.cbegin, nodes.cend, [id](Node node){ return id == node; });};
+    const_iterator find_by_id(ElementID id) const { std::find_if(nodes.cbegin, nodes.cend, [id](Node node){ return id == node; });};
     void remove_by_id(ElementID id);
 
 private:
     container_t nodes;
 };
+
+
 
 enum class ElementType{
     RAMP, WORKER, STOREHOUSE, LINK
@@ -63,22 +65,22 @@ public:
     void remove_ramp(ElementID id){RampCont.remove_by_id(id);}
     NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id){return RampCont.find_by_id(id);}
     NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const {return RampCont.find_by_id(id);}
-    NodeCollection<Ramp>::const_iterator ramp_cbegin(){RampCont.begin();}
-    NodeCollection<Ramp>::const_iterator ramp_cend(){RampCont.end();}
+    NodeCollection<Ramp>::const_iterator ramp_cbegin(){RampCont.cbegin();}
+    NodeCollection<Ramp>::const_iterator ramp_cend(){RampCont.cend();}
 
-    void add_worker(Ramp&& rmp);
-    void remove_worker(ElementID id);
-    NodeCollection<Ramp>::iterator find_worker_by_id(ElementID id);
-    NodeCollection<Ramp>::const_iterator find_worker_by_id(ElementID id) const;
-    NodeCollection<Ramp>::const_iterator worker_cbegin();
-    NodeCollection<Ramp>::const_iterator worker_cend();
+    void add_worker(Worker&& rmp){WorkerCont.add(std::move(rmp));}
+    void remove_worker(ElementID id){WorkerCont.remove_by_id(id);}
+    NodeCollection<Worker>::iterator find_worker_by_id(ElementID id){return WorkerCont.find_by_id(id);}
+    NodeCollection<Worker>::const_iterator find_worker_by_id(ElementID id) const {return WorkerCont.find_by_id(id);}
+    NodeCollection<Worker>::const_iterator worker_cbegin(){WorkerCont.cbegin();}
+    NodeCollection<Worker>::const_iterator worker_cend(){WorkerCont.cend();}
 
-    void add_storehouse(Ramp&& rmp);
-    void remove_storehouse(ElementID id);
-    NodeCollection<Ramp>::iterator find_storehouse_by_id(ElementID id);
-    NodeCollection<Ramp>::const_iterator find_storehouse_by_id(ElementID id) const;
-    NodeCollection<Ramp>::const_iterator storehouse_cbegin();
-    NodeCollection<Ramp>::const_iterator storehouse_cend();
+    void add_storehouse(Storehouse&& rmp){StorehouseCont.add(std::move(rmp));}
+    void remove_storehouse(ElementID id){StorehouseCont.remove_by_id(id);}
+    NodeCollection<Storehouse>::iterator find_storehouse_by_id(ElementID id){return StorehouseCont.find_by_id(id);}
+    NodeCollection<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const {return StorehouseCont.find_by_id(id);}
+    NodeCollection<Storehouse>::const_iterator storehouse_cbegin(){StorehouseCont.cbegin();}
+    NodeCollection<Storehouse>::const_iterator storehouse_cend(){StorehouseCont.cend();}
 private:
     NodeCollection<Ramp> RampCont;
     NodeCollection<Worker> WorkerCont;
