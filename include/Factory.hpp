@@ -25,17 +25,19 @@ public:
     using iterator = typename container_t::iterator;
     using const_iterator = typename container_t::const_iterator;
 
-private:
-    container_t nodes;
-
-public:
-    // Funkcje do iteracji
     iterator begin() { return nodes.begin(); }
     const_iterator begin() const { return nodes.begin(); }
     iterator end() { return nodes.end(); }
     const_iterator end() const { return nodes.end(); }
+
     void add(const Node& node) { nodes.push_back(node); }
     std::size_t size() const { return nodes.size(); }
+    iterator find_by_id(ElementID id);
+    const_iterator find_by_id(ElementID id);
+    void remove_by_id(ElementID id);
+
+private:
+    container_t nodes;
 };
 
 enum class ElementType{
