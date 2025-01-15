@@ -11,6 +11,8 @@ bool Factory::is_consistent() {
 //    kolor := mapowanie {PackageSender* -> kolor_węzła_enum}
 //    dla wszystkich ramp i dla wszystkich robotników jako `węzeł`:
 //    kolor[węzeł] = NIEODWIEDZONY
+
+
 //
 //    jeśli poniższa instrukcja rzuci wyjątek, zwróć FAŁSZ:  /* tj. sieć nie jest spójna */
 //    dla każdej rampy `rampa` w kolekcji wszystkich ramp w sieci:
