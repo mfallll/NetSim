@@ -12,6 +12,11 @@
 #include <optional>
 #include <functional>
 
+enum class ReceiverType {
+    WORKER,
+    STOREHOUSE
+};
+
 class IPackageReceiver {
     public:
     //IPackageReceiver(IPackageReceiver& p) = default;
