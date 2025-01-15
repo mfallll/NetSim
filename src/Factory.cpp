@@ -1,4 +1,5 @@
 #include "Factory.hpp"
+#include <unique>
 
 
 Factory::Factory() {
@@ -68,7 +69,7 @@ ParsedLineData parse_line(std::string& line){
     };
 
     ParsedLineData parsed_line_data;
-//ssssss
+
     try {
         parsed_line_data.element_type = map_element_types.at(tokens[0]);
         std::for_each(tokens.begin(), tokens.end(), [&](const std::string & please){
@@ -81,29 +82,7 @@ ParsedLineData parse_line(std::string& line){
     return parsed_line_data;
 }
 
-void Factory::add_ramp(Ramp &&rmp) {
 
-}
-
-void Factory::remove_ramp(ElementID id) {
-
-}
-
-NodeCollection<Ramp>::iterator Factory::find_ramp_by_id(ElementID id) {
-    return nullptr;
-}
-
-NodeCollection<Ramp>::const_iterator Factory::find_ramp_by_id(ElementID id) const {
-    return nullptr;
-}
-
-NodeCollection<Ramp>::const_iterator Factory::ramp_cbegin() {
-    return nullptr;
-}
-
-NodeCollection<Ramp>::const_iterator Factory::ramp_cend() {
-    return nullptr;
-}
 
 Factory load_factory_structure(std::istream& is){
     Factory factory;
@@ -112,6 +91,37 @@ Factory load_factory_structure(std::istream& is){
         if (line.empty() or line[0] == ';'){
             continue;
         }
+        ParsedLineData parsed_line = parse_line(line);
+        switch(parsed_line.element_type){
+            case ElementType::RAMP:{
+                ElementID element_id = std::stoi(parsed_line.parameters.at("id"));
+                TimeOffset time_offset = std::stoi(parsed_line.parameters.at("processing-time"));
+                Ramp ramp(element_id, time_offset);
+                factory.add_ramp(std::move(ramp));
+                break;
+            }
+            //jakas kraksa chyba czekam az skonczycie moze sie naprawi
+            case ElementType::WORKER:{
+                ElementID element_id = std::stoi(parsed_line.parameters.at("id"));
+                TimeOffset time_offset = std::stoi(parsed_line.parameters.at("processing-time"));
+                PackageQueueType package_queue_type = std::stoi(parsed_line.parameters.at("queue-type"));
+                Worker worker(element_id, time_offset, std::make_unique<PackageQueue>(package_queue_type));
+                factory.add_worker(std::move(worker));
+                break;
+            }
+            //jakas kraksa again, ta sama wlasciwie
+            case ElementType::STOREHOUSE:{
+                ElementID element_id = std::stoi(parsed_line.parameters.at("id"));
+                Storehouse storehouse(element_id)
+                factory.add_storehouse(std::move(storehouse));
+                break;
+            }
+            //a tego nie ma lols
+            case ElementType::LINK:{
+                link(factory, parsed_line.parameters);
+                break;
+            }
+        }
     }
-
+    return factory;
 }
