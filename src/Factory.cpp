@@ -36,6 +36,51 @@ void Factory::do_work() {
 
 }
 
+std::vector<std::string> split(const std::string& str, char delimiter)
+{
+    std::stringstream test(str);
+    std::string segment;
+    std::vector<std::string> seglist;
+
+    while(std::getline(test, segment, delimiter))
+    {
+        seglist.push_back(segment);
+    }
+    return seglist;
+}
+
+ParsedLineData parse_line(std::string& line){
+    std::vector<std::string> tokens;
+    std::string token;
+
+    std::istringstream token_stream(line);
+    char delimiter = ' ';
+
+    while (std::getline(token_stream, token, delimiter)) {
+        tokens.push_back(token);
+    }
+
+    std::map<std::string, ElementType> map_element_types{
+            {"LOADING_RAMP", ElementType::RAMP},
+            {"WORKER", ElementType::WORKER},
+            {"STOREHOUSE", ElementType::STOREHOUSE},
+            {"LINK", ElementType::LINK}
+    };
+
+    ParsedLineData parsed_line_data;
+//ssssss
+    try {
+        parsed_line_data.element_type = map_element_types.at(tokens[0]);
+        std::for_each(tokens.begin(), tokens.end(), [&](const std::string & please){
+            auto value = split(please, '=');
+            parsed_line_data.parameters[value[0]] = value[1];
+        });
+    }
+    catch( std::out_of_range& e) { throw std::exception(); }
+
+    return parsed_line_data;
+}
+
 void Factory::add_ramp(Ramp &&rmp) {
 
 }
