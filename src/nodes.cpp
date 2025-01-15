@@ -9,7 +9,7 @@ void ReceiverPreferences::add_receiver(IPackageReceiver *r){
         for (auto &pref : preferences_){
             pref.second = (double) 1/(size+1) ;
         }
-    preferences_[r] = (double) 1/(size+1);
+        preferences_[r] = (double) 1/(size+1);
     }
 
 }
@@ -39,9 +39,9 @@ IPackageReceiver* ReceiverPreferences::choose_receiver(){
 }
 
 Worker::Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q) :
-id_(id),
-pd_(pd),
-q_(std::move(q))
+        id_(id),
+        pd_(pd),
+        q_(std::move(q))
 {}
 
 void Worker::do_work(Time t) {
