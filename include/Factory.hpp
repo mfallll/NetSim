@@ -25,21 +25,23 @@ public:
     using iterator = typename container_t::iterator;
     using const_iterator = typename container_t::const_iterator;
 
+    const_iterator cbegin() const { return nodes.cbegin(); }
+    const_iterator cend() const { return nodes.cend(); }
     iterator begin() { return nodes.begin(); }
-    const_iterator begin() const { return nodes.begin(); }
     iterator end() { return nodes.end(); }
-    const_iterator end() const { return nodes.end(); }
+    const_iterator begin() const { return nodes.cbegin(); }
+    const_iterator end() const { return nodes.cend(); }
 
-    void add(const Node& node) { nodes.push_back(node); }
+    void add(const Node&& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
     iterator find_by_id(ElementID id);
-    const_iterator find_by_id(ElementID id);
+    const_iterator find_by_id(ElementID id) const;
     void remove_by_id(ElementID id);
 
 private:
     container_t nodes;
 };
-//
+
 enum class ElementType{
     RAMP, WORKER, STOREHOUSE, LINK
 };
@@ -57,14 +59,30 @@ public:
     void do_package_passing();  // odwolanie do przekazywania polproduktow
     void do_work();             // odwolanie do robotnikow
 
-    void add_ramp(Ramp&& rmp);
-    void remove_ramp(ElementID id);
-    NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id);
-    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const;
-    NodeCollection<Ramp>::const_iterator ramp_cbegin();
-    NodeCollection<Ramp>::const_iterator ramp_cend();
-private:
+    void add_ramp(Ramp&& rmp){RampCont.add(std::move(rmp));}
+    void remove_ramp(ElementID id){RampCont.remove_by_id(id);}
+    NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id){return RampCont.find_by_id(id);}
+    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const {return RampCont.find_by_id(id);}
+    NodeCollection<Ramp>::const_iterator ramp_cbegin(){RampCont.begin();}
+    NodeCollection<Ramp>::const_iterator ramp_cend(){RampCont.end();}
 
+    void add_worker(Ramp&& rmp);
+    void remove_worker(ElementID id);
+    NodeCollection<Ramp>::iterator find_worker_by_id(ElementID id);
+    NodeCollection<Ramp>::const_iterator find_worker_by_id(ElementID id) const;
+    NodeCollection<Ramp>::const_iterator worker_cbegin();
+    NodeCollection<Ramp>::const_iterator worker_cend();
+
+    void add_storehouse(Ramp&& rmp);
+    void remove_storehouse(ElementID id);
+    NodeCollection<Ramp>::iterator find_storehouse_by_id(ElementID id);
+    NodeCollection<Ramp>::const_iterator find_storehouse_by_id(ElementID id) const;
+    NodeCollection<Ramp>::const_iterator storehouse_cbegin();
+    NodeCollection<Ramp>::const_iterator storehouse_cend();
+private:
+    NodeCollection<Ramp> RampCont;
+    NodeCollection<Worker> WorkerCont;
+    NodeCollection<Storehouse> StorehouseCont;
 };
 
 ParsedLineData parse_line(std::string& line);
