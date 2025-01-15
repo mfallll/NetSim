@@ -103,6 +103,9 @@ public:
     IPackageStockpile::const_iterator cend() const override {return q_->cend(); }
     IPackageStockpile::const_iterator begin() const override {return q_->begin(); }
     IPackageStockpile::const_iterator end() const override {return q_->end(); }
+    #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
+        ReceiverType get_receiver_type() const { return ReceiverType::WORKER; };
+    #endif
 
 private:
     ElementID id_;
@@ -122,7 +125,9 @@ public:
     IPackageStockpile::const_iterator cend() const override {return d_->cend(); }
     IPackageStockpile::const_iterator begin() const override {return d_->begin(); }
     IPackageStockpile::const_iterator end() const override {return d_->end(); }
-
+    #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
+        ReceiverType get_receiver_type() const { return ReceiverType::STOREHOUSE; };
+    #endif
 private:
     ElementID id_;
     std::unique_ptr<IPackageStockpile> d_;
