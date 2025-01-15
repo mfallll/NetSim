@@ -29,7 +29,7 @@ class Factory{
     void do_work(); // odwolanie do robotnikow
 };
 
-ParsedLineData parse_line(string line);
+ParsedLineData parse_line(std::string line);
 
 Factory load_factory_structure(std::istream& is);
 

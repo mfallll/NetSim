@@ -20,3 +20,8 @@ void factory::do_package_passing() {
 void factory::do_work() {
 
 }
+
+Factory load_factory_structure(std::istream& is){
+    Factory factory;
+
+}
