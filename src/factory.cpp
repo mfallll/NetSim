@@ -2,7 +2,7 @@
 
 
 factory::factory() {
-
+    //potrrzebuje zmiany
 }
 
 bool factory::is_consistent() {
