@@ -10,6 +10,8 @@
 #define REPORTING               4
 #define SIMULATION              5
 
+#define EXERCISE_ID EXERCISE_ID_NODES
+
 #if defined(EXERCISE_ID)
     #if EXERCISE_ID >= EXERCISE_ID_NODES
         #define WITH_PROBABILITY_GENERATOR
