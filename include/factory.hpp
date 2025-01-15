@@ -22,7 +22,7 @@ class Factory{
     bool is_consistent(); // Sprawdzenie spójnosci
     void do_deliveries(); // Odwolanie do rampy
     void do_package_passing(); // odwolanie do przekazywania polproduktow
-    void do_work(); //
+    void do_work(); // odwolanie do robotnikow
 };
 
 ParsedLineData parse_line(string line);
