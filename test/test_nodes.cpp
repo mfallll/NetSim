@@ -37,14 +37,6 @@ TEST(WorkerTest, HasBuffer) {
     auto& buffer2 = w.get_sending_buffer();
     ASSERT_TRUE(buffer2.has_value());
     EXPECT_EQ(buffer2.value().get_id(), 1);
-
-    ++t;
-    w.receive_package(Package(3));
-//    w.do_work(t); // Crashuje testy
-
-//    auto& buffer3 = w.get_sending_buffer();
-//    ASSERT_TRUE(buffer3.has_value());
-//    EXPECT_EQ(buffer3.value().get_id(), 2);
 }
 
 
@@ -120,6 +112,10 @@ TEST_F(ReceiverPreferencesChoosingTest, ChooseReceiver) {
     MockReceiver r1, r2;
     rp.add_receiver(&r1);
     rp.add_receiver(&r2);
+
+//    IPackageReceiver * pointer1 = rp.choose_receiver();
+//    IPackageReceiver * pointer2 = rp.choose_receiver();
+//    printf("%p\t%p\t%p\t%p\n", pointer1, pointer2, &r1, &r2);
 
     if (rp.begin()->first == &r1) {
         EXPECT_EQ(rp.choose_receiver(), &r1);

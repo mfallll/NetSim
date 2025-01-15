@@ -5,6 +5,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
+#include "config.hpp"
 #include "helpers.hpp"
 
 // -------
@@ -26,6 +27,7 @@ public:
 
 class GlobalFunctionsFixture : public ::testing::Test {
 public:
+
     #ifdef WITH_PROBABILITY_GENERATOR
     GlobalFunctionsFixture() {
         probability_generator = [&]() { return global_functions_mock.generate_canonical(); };

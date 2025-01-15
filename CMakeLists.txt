@@ -17,7 +17,7 @@ include_directories(
 set(SOURCE_FILES
         src/package.cpp
         src/storage_types.cpp
-
+        src/factory.cpp
         # Chyba powinny być załączone, ale to się sprawdzi jeszcze XD
         src/nodes.cpp
         src/helpers.cpp
@@ -34,8 +34,8 @@ add_executable(NetSim ${SOURCE_FILES} main.cpp)
 # plików źródłowych z testami jednostkowymi.
 set(SOURCES_FILES_TESTS
         test/main_gtest.cpp
-        #test/test_Factory.cpp
-        #test/test_factory_io.cpp
+        test/test_Factory.cpp
+        test/test_factory_io.cpp
         test/test_nodes.cpp
         test/test_package.cpp
         #test/test_reports.cpp
