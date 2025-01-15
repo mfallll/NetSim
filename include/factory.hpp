@@ -13,10 +13,7 @@
 #include <map>
 
 enum class ElementType{
-    RAMP,
-    WORKER,
-    STOREHOUSE,
-    LINK
+    RAMP, WORKER, STOREHOUSE, LINK
 };
 
 struct ParsedLineData{
