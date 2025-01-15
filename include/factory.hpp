@@ -13,7 +13,7 @@
 #include <map>
 
 struct ParsedLineData{
-    ElementType elementtype;
+    ElementType element_type;
     std::map<std::string, std::string> parameters;
 };
 
