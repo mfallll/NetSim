@@ -414,7 +414,7 @@ When the assertion wasn't successful, the `AssertionResult` object stores a
 non-empty failure message that can be retrieved with the object's `message()`
 method.
 
-To create an instance of this class, use one of the factory functions
+To create an instance of this class, use one of the Factory functions
 [`AssertionSuccess()`](#AssertionSuccess) or
 [`AssertionFailure()`](#AssertionFailure).
 
@@ -1365,19 +1365,19 @@ See also [`Environment`](#Environment).
 template <typename Factory>
 TestInfo* testing::RegisterTest(const char* test_suite_name, const char* test_name,
                                   const char* type_param, const char* value_param,
-                                  const char* file, int line, Factory factory)
+                                  const char* file, int line, Factory Factory)
 ```
 
 Dynamically registers a test with the framework.
 
-The `factory` argument is a factory callable (move-constructible) object or
+The `Factory` argument is a Factory callable (move-constructible) object or
 function pointer that creates a new instance of the `Test` object. It handles
 ownership to the caller. The signature of the callable is `Fixture*()`, where
 `Fixture` is the test fixture class for the test. All tests registered with the
 same `test_suite_name` must return the same fixture type. This is checked at
 runtime.
 
-The framework will infer the fixture class from the factory and will call the
+The framework will infer the fixture class from the Factory and will call the
 `SetUpTestSuite` and `TearDownTestSuite` methods for it.
 
 Must be called before [`RUN_ALL_TESTS()`](#RUN_ALL_TESTS) is invoked, otherwise

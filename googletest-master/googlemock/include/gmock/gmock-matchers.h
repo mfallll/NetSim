@@ -293,7 +293,7 @@ namespace testing {
 // To implement a matcher Foo for type T, define:
 //   1. a class FooMatcherImpl that implements the
 //      MatcherInterface<T> interface, and
-//   2. a factory function that creates a Matcher<T> object from a
+//   2. a Factory function that creates a Matcher<T> object from a
 //      FooMatcherImpl*.
 //
 // The two-level delegation design makes it possible to allow a user

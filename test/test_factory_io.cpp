@@ -1,7 +1,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#include "factory.hpp"
+#include "Factory.hpp"
 
 #include <set>
 
@@ -70,13 +70,13 @@ TEST(FactoryIOTest, ParseLinkOneReceiver) {
 //        << "STOREHOUSE id=1" << "\n"
 //        << "LINK src=ramp-1 dest=store-1 p=1.0" << "\n";
 //    std::istringstream iss(oss.str());
-//    auto factory = load_factory_structure(iss);
+//    auto Factory = load_factory_structure(iss);
 //
-//    ASSERT_EQ(std::next(factory.ramp_cbegin(), 1), factory.ramp_cend());
-//    const auto& r = *(factory.ramp_cbegin());
+//    ASSERT_EQ(std::next(Factory.ramp_cbegin(), 1), Factory.ramp_cend());
+//    const auto& r = *(Factory.ramp_cbegin());
 //
-//    ASSERT_EQ(std::next(factory.storehouse_cbegin(), 1), factory.storehouse_cend());
-//    const auto& s = *(factory.storehouse_cbegin());
+//    ASSERT_EQ(std::next(Factory.storehouse_cbegin(), 1), Factory.storehouse_cend());
+//    const auto& s = *(Factory.storehouse_cbegin());
 //
 //    auto prefs = r.receiver_preferences_.get_preferences();
 //    ASSERT_EQ(1U, prefs.size());
@@ -120,14 +120,14 @@ TEST(FactoryIOTest, ParseLinkMultipleReceivers) {
 //        << "LINK src=ramp-1 dest=store-1 p=0.3" << "\n"
 //        << "LINK src=ramp-1 dest=store-2 p=0.7" << "\n";
 //    std::istringstream iss(oss.str());
-//    auto factory = load_factory_structure(iss);
+//    auto Factory = load_factory_structure(iss);
 //
-//    ASSERT_EQ(std::next(factory.ramp_cbegin(), 1), factory.ramp_cend());
-//    const auto& r = *(factory.ramp_cbegin());
+//    ASSERT_EQ(std::next(Factory.ramp_cbegin(), 1), Factory.ramp_cend());
+//    const auto& r = *(Factory.ramp_cbegin());
 //
-//    ASSERT_EQ(std::next(factory.storehouse_cbegin(), 2), factory.storehouse_cend());
-//    const auto& s1 = *(factory.storehouse_cbegin());
-//    const auto& s2 = *(std::next(factory.storehouse_cbegin(), 1));
+//    ASSERT_EQ(std::next(Factory.storehouse_cbegin(), 2), Factory.storehouse_cend());
+//    const auto& s1 = *(Factory.storehouse_cbegin());
+//    const auto& s2 = *(std::next(Factory.storehouse_cbegin(), 1));
 //
 //    auto prefs = r.receiver_preferences_.get_preferences();
 //    ASSERT_EQ(2U, prefs.size());

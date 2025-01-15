@@ -781,7 +781,7 @@ class GTEST_API_ UnitTestImpl {
     return internal_run_death_test_flag_.get();
   }
 
-  // Returns a pointer to the current death test factory.
+  // Returns a pointer to the current death test Factory.
   internal::DeathTestFactory* death_test_factory() {
     return death_test_factory_.get();
   }

@@ -430,7 +430,7 @@ TypeId GetTypeId() {
 // framework.
 GTEST_API_ TypeId GetTestTypeId();
 
-// Defines the abstract factory interface that creates instances
+// Defines the abstract Factory interface that creates instances
 // of a Test object.
 class TestFactoryBase {
  public:
@@ -560,9 +560,9 @@ struct SuiteApiResolver : T {
 //   fixture_class_id: ID of the test fixture class
 //   set_up_tc:        pointer to the function that sets up the test suite
 //   tear_down_tc:     pointer to the function that tears down the test suite
-//   factory:          pointer to the factory that creates a test object.
+//   Factory:          pointer to the Factory that creates a test object.
 //                     The newly created TestInfo instance will assume
-//                     ownership of the factory object.
+//                     ownership of the Factory object.
 GTEST_API_ TestInfo* MakeAndRegisterTestInfo(
     std::string test_suite_name, const char* name, const char* type_param,
     const char* value_param, CodeLocation code_location,
