@@ -18,10 +18,10 @@
 
 #include <vector> // Przykład z std::vector jako std_container_t
 
-template <typename Node, class std_container_t>
+template <typename Node, template <typename> class std_container_t>
 class NodeCollection {
 public:
-    using container_t = typename std_container_t<Node>;
+    using container_t = class std_container_t<Node>;
     using iterator = typename container_t::iterator;
     using const_iterator = typename container_t::const_iterator;
 
@@ -34,7 +34,7 @@ public:
     const_iterator begin() const { return nodes.begin(); }
     iterator end() { return nodes.end(); }
     const_iterator end() const { return nodes.end(); }
-    void add(const Node& node) { nodes.push_back(node); }
+    void add(const Node& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
 };
 
