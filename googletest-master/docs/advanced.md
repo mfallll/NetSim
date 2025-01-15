@@ -54,7 +54,7 @@ this problem.
 
 An `AssertionResult` object represents the result of an assertion (whether it's
 a success or a failure, and an associated message). You can create an
-`AssertionResult` using one of these factory functions:
+`AssertionResult` using one of these Factory functions:
 
 ```c++
 namespace testing {
@@ -1195,7 +1195,7 @@ In the above, we define and instantiate `FooTest` in the *same* source file.
 Sometimes you may want to define value-parameterized tests in a library and let
 other people instantiate them later. This pattern is known as *abstract tests*.
 As an example of its application, when you are designing an interface you can
-write a standard suite of abstract tests (perhaps using a factory function as
+write a standard suite of abstract tests (perhaps using a Factory function as
 the test parameter) that all implementations of the interface are expected to
 pass. When someone implements the interface, they can instantiate your suite to
 get all the interface-conformance tests for free.
@@ -1598,17 +1598,17 @@ It provides the following signature:
 template <typename Factory>
 TestInfo* RegisterTest(const char* test_suite_name, const char* test_name,
                        const char* type_param, const char* value_param,
-                       const char* file, int line, Factory factory);
+                       const char* file, int line, Factory Factory);
 ```
 
-The `factory` argument is a factory callable (move-constructible) object or
+The `Factory` argument is a Factory callable (move-constructible) object or
 function pointer that creates a new instance of the Test object. It handles
 ownership to the caller. The signature of the callable is `Fixture*()`, where
 `Fixture` is the test fixture class for the test. All tests registered with the
 same `test_suite_name` must return the same fixture type. This is checked at
 runtime.
 
-The framework will infer the fixture class from the factory and will call the
+The framework will infer the fixture class from the Factory and will call the
 `SetUpTestSuite` and `TearDownTestSuite` for it.
 
 Must be called before `RUN_ALL_TESTS()` is invoked, otherwise behavior is

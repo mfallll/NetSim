@@ -55,7 +55,7 @@ namespace testing {
 // the assertion wasn't successful, the AssertionResult object
 // remembers a non-empty message that describes how it failed.
 //
-// To create an instance of this class, use one of the factory functions
+// To create an instance of this class, use one of the Factory functions
 // (AssertionSuccess() and AssertionFailure()).
 //
 // This class is useful for two purposes:

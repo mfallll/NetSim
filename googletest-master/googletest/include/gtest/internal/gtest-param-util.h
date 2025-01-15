@@ -428,9 +428,9 @@ class TestMetaFactoryBase {
 //
 // TestMetaFactory creates test factories for passing into
 // MakeAndRegisterTestInfo function. Since MakeAndRegisterTestInfo receives
-// ownership of test factory pointer, same factory object cannot be passed
+// ownership of test Factory pointer, same Factory object cannot be passed
 // into that method twice. But ParameterizedTestSuiteInfo is going to call
-// it for each Test/Parameter value combination. Thus it needs meta factory
+// it for each Test/Parameter value combination. Thus it needs meta Factory
 // creator class.
 template <class TestSuite>
 class TestMetaFactory

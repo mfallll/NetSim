@@ -1,11 +1,11 @@
-#include "factory.hpp"
+#include "Factory.hpp"
 
 
-factory::factory() {
+Factory::Factory() {
     //potrrzebuje zmiany
 }
 
-bool factory::is_consistent() {
+bool Factory::is_consistent() {
     /* Użyj algorytmu DFS do przejścia grafu, dla każdej rampy. */
 
 //    kolor := mapowanie {PackageSender* -> kolor_węzła_enum}
@@ -22,14 +22,14 @@ bool factory::is_consistent() {
     return false;
 }
 
-void factory::do_deliveries() {
+void Factory::do_deliveries() {
 
 }
 
-void factory::do_package_passing() {
+void Factory::do_package_passing() {
 
 }
 
-void factory::do_work() {
+void Factory::do_work() {
 
 }

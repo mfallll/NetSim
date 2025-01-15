@@ -153,7 +153,7 @@ namespace testing {
 
 // To implement an action Foo, define:
 //   1. a class FooAction that implements the ActionInterface interface, and
-//   2. a factory function that creates an Action object from a
+//   2. a Factory function that creates an Action object from a
 //      const FooAction*.
 //
 // The two-level delegation design follows that of Matcher, providing
@@ -583,7 +583,7 @@ class DefaultValue {
     producer_ = new FixedValueProducer(x);
   }
 
-  // Provides a factory function to be called to generate the default value.
+  // Provides a Factory function to be called to generate the default value.
   // This method can be used even if T is only move-constructible, but it is not
   // limited to that case.
   typedef T (*FactoryFunction)();

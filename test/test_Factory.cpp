@@ -1,7 +1,7 @@
 //#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#include "factory.hpp"
+#include "Factory.hpp"
 #include "nodes.hpp"
 
 // DEBUG
@@ -122,9 +122,9 @@ TEST(FactoryTest, RemoveWorkerTwoRemainingReceivers) {
     r.receiver_preferences_.add_receiver(&(*(factory.find_worker_by_id(3))));
 
 //    ReceiverPreferences::preferences_t p;
-//    p[&(*(factory.find_worker_by_id(1)))] = 1.0 / 3.0;
-//    p[&(*(factory.find_worker_by_id(2)))] = 1.0 / 3.0;
-//    p[&(*(factory.find_worker_by_id(3)))] = 1.0 / 3.0;
+//    p[&(*(Factory.find_worker_by_id(1)))] = 1.0 / 3.0;
+//    p[&(*(Factory.find_worker_by_id(2)))] = 1.0 / 3.0;
+//    p[&(*(Factory.find_worker_by_id(3)))] = 1.0 / 3.0;
 //    r.receiver_preferences_.set_preferences(p);
 
     factory.remove_worker(1);
