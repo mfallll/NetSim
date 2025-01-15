@@ -77,6 +77,8 @@ private:
 class Ramp : public PackageSender {
 public:
     Ramp(ElementID id, TimeOffset di) : PackageSender(), id_(id), di_(di) {}
+    Ramp(Ramp &&ramp) : id_(ramp.id_), di_(ramp.di_), buffer_(std::move(ramp.buffer_)), t_(ramp.t_) {}
+    Ramp(Ramp &ramp) = default;
     void deliver_goods(Time t);
     TimeOffset get_delivery_interval() const { return di_; }
     ElementID get_id() const { return id_; }
@@ -90,6 +92,7 @@ private:
 class Worker : public IPackageReceiver, public PackageSender{
 public:
     Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q);
+
 
     void receive_package(Package &&p) override {q_->push(std::move(p));}
     [[nodiscard]] ElementID get_id() const override {return id_; };
