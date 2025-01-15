@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <stack>
 
 
 #include <vector> // Przykład z std::vector jako std_container_t
