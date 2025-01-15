@@ -36,4 +36,13 @@ void Factory::do_work() {
 
 }
 
-Factory load_factory_structure(std::istream& is);
+Factory load_factory_structure(std::istream& is){
+    Factory factory;
+    std::string line;
+    while (std::getline(is, line)) {
+        if (line.empty() or line[0] == ';'){
+            continue;
+        }
+    }
+
+}
