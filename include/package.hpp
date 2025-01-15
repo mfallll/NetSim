@@ -4,7 +4,7 @@
 #include "types.hpp"
 #include <set>
 
-//TO DO: MARTYNA
+//bombelki
 
 class Package {
 public:

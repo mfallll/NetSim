@@ -18,8 +18,6 @@
 
 #include <vector> // Przykład z std::vector jako std_container_t xd
 
-//
-
 template <typename Node, template <typename> class std_container_t = std::vector>
 class NodeCollection {
 public:
@@ -27,10 +25,12 @@ public:
     using iterator = typename container_t::iterator;
     using const_iterator = typename container_t::const_iterator;
 
+    const_iterator cbegin() const { return nodes.cbegin(); }
+    const_iterator cend() const { return nodes.cend(); }
     iterator begin() { return nodes.begin(); }
-    const_iterator begin() const { return nodes.begin(); }
     iterator end() { return nodes.end(); }
-    const_iterator end() const { return nodes.end(); }
+    const_iterator begin() const { return nodes.cbegin(); }
+    const_iterator end() const { return nodes.cend(); }
 
     void add(const Node&& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
@@ -41,7 +41,7 @@ public:
 private:
     container_t nodes;
 };
-//
+
 enum class ElementType{
     RAMP, WORKER, STOREHOUSE, LINK
 };
