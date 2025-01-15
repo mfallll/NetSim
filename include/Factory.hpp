@@ -37,7 +37,7 @@ public:
     void add(const Node& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
 };
-
+//
 enum class ElementType{
     RAMP, WORKER, STOREHOUSE, LINK
 };
