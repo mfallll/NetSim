@@ -18,6 +18,8 @@
 
 #include <vector> // Przykład z std::vector jako std_container_t xd
 
+//
+
 template <typename Node, template <typename> class std_container_t = std::vector>
 class NodeCollection {
 public:
@@ -33,7 +35,7 @@ public:
     void add(const Node& node) { nodes.push_back(node); }
     std::size_t size() const { return nodes.size(); }
     iterator find_by_id(ElementID id);
-    const_iterator find_by_id(ElementID id);
+    const_iterator find_by_id(ElementID id) const;
     void remove_by_id(ElementID id);
 
 private:
