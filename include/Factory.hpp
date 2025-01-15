@@ -6,7 +6,9 @@
 #include "package.hpp"
 #include "helpers.hpp"
 #include "storage_types.hpp"
+#include "nodes.hpp"
 
+#include <string>
 #include <sstream>
 #include <iostream>
 #include <vector>
@@ -28,6 +30,13 @@ public:
     void do_deliveries(); // Odwolanie do rampy
     void do_package_passing(); // odwolanie do przekazywania polproduktow
     void do_work(); // odwolanie do robotnikow
+
+    void add_ramp(Ramp&& rmp);
+    void remove_ramp(ElementID id);
+    NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id);
+    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id);
+    NodeCollection<Ramp>::const_iterator ramp_cbegin();
+    NodeCollection<Ramp>::const_iterator ramp_cend();
 private:
 
 };
