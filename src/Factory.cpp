@@ -36,6 +36,30 @@ void Factory::do_work() {
 
 }
 
+void Factory::add_ramp(Ramp &&rmp) {
+
+}
+
+void Factory::remove_ramp(ElementID id) {
+
+}
+
+NodeCollection<Ramp>::iterator Factory::find_ramp_by_id(ElementID id) {
+    return nullptr;
+}
+
+NodeCollection<Ramp>::const_iterator Factory::find_ramp_by_id(ElementID id) const {
+    return nullptr;
+}
+
+NodeCollection<Ramp>::const_iterator Factory::ramp_cbegin() {
+    return nullptr;
+}
+
+NodeCollection<Ramp>::const_iterator Factory::ramp_cend() {
+    return nullptr;
+}
+
 Factory load_factory_structure(std::istream& is){
     Factory factory;
     std::string line;

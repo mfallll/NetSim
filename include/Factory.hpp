@@ -18,10 +18,10 @@
 
 #include <vector> // Przykład z std::vector jako std_container_t
 
-template <typename Node, class std_container_t>
+template <typename Node, template <typename> class std_container_t = std::vector>
 class NodeCollection {
 public:
-    using container_t = typename std_container_t<Node>;
+    using container_t = class std_container_t<Node>;
     using iterator = typename container_t::iterator;
     using const_iterator = typename container_t::const_iterator;
 
@@ -52,15 +52,15 @@ struct ParsedLineData{
 class Factory{
 public:
     Factory();
-    bool is_consistent(); // Sprawdzenie spójnosci
-    void do_deliveries(); // Odwolanie do rampy
-    void do_package_passing(); // odwolanie do przekazywania polproduktow
-    void do_work(); // odwolanie do robotnikow
+    bool is_consistent();       // Sprawdzenie spójnosci
+    void do_deliveries();       // Odwolanie do rampy
+    void do_package_passing();  // odwolanie do przekazywania polproduktow
+    void do_work();             // odwolanie do robotnikow
 
     void add_ramp(Ramp&& rmp);
     void remove_ramp(ElementID id);
     NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id);
-    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id);
+    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const;
     NodeCollection<Ramp>::const_iterator ramp_cbegin();
     NodeCollection<Ramp>::const_iterator ramp_cend();
 private:
