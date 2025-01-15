@@ -145,7 +145,7 @@ void save_factory_structure(Factory& factory, std::ostream& os){
 
     });
 
-    //WORKER still problem z queuetype
+    //WORKER still problem z queuetype dalej czemu to wirtualne jest
     std::for_each(factory.worker_cbegin(), factory.worker_cend(), [&](const Worker& worker){
         ElementID id_ramp = worker.get_id();
         TimeOffset processing_duration = worker.get_processing_duration();
