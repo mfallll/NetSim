@@ -104,11 +104,11 @@ rough guidelines:
 *   Typed tests can be easier to write if instances of the different
     implementations can be created the same way, modulo the type. For example,
     if all these implementations have a public default constructor (such that
-    you can write `new TypeParam`), or if their factory functions have the same
+    you can write `new TypeParam`), or if their Factory functions have the same
     form (e.g. `CreateInstance<TypeParam>()`).
 *   Value-parameterized tests can be easier to write if you need different code
     patterns to create different implementations' instances, e.g. `new Foo` vs
-    `new Bar(5)`. To accommodate for the differences, you can write factory
+    `new Bar(5)`. To accommodate for the differences, you can write Factory
     function wrappers and pass these function pointers to the tests as their
     parameters.
 *   When a typed test fails, the default output includes the name of the type,

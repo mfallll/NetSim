@@ -384,7 +384,7 @@ DeathTest::DeathTest() {
 }
 
 // Creates and returns a death test by dispatching to the current
-// death test factory.
+// death test Factory.
 bool DeathTest::Create(const char* statement,
                        Matcher<const std::string&> matcher, const char* file,
                        int line, DeathTest** test) {

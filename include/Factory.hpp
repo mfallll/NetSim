@@ -22,11 +22,14 @@ struct ParsedLineData{
 };
 
 class Factory{
-    factory();
+public:
+    Factory();
     bool is_consistent(); // Sprawdzenie spójnosci
     void do_deliveries(); // Odwolanie do rampy
     void do_package_passing(); // odwolanie do przekazywania polproduktow
     void do_work(); // odwolanie do robotnikow
+private:
+
 };
 
 ParsedLineData parse_line(std::string line);

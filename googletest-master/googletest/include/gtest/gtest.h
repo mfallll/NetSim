@@ -614,7 +614,7 @@ class GTEST_API_ TestInfo {
       internal::TestFactoryBase* factory);
 
   // Constructs a TestInfo object. The newly constructed instance assumes
-  // ownership of the factory object.
+  // ownership of the Factory object.
   TestInfo(std::string test_suite_name, std::string name,
            const char* a_type_param,   // NULL if not a type-parameterized test
            const char* a_value_param,  // NULL if not a value-parameterized test
@@ -655,7 +655,7 @@ class GTEST_API_ TestInfo {
   bool matches_filter_;       // True if this test matches the
                               // user-specified filter.
   bool is_in_another_shard_;  // Will be run in another shard.
-  internal::TestFactoryBase* const factory_;  // The factory that creates
+  internal::TestFactoryBase* const factory_;  // The Factory that creates
                                               // the test object
 
   // This field is mutable and needs to be reset before running the
@@ -2243,14 +2243,14 @@ GTEST_DISABLE_MSC_WARNINGS_POP_()  // 4805 4100
 // insufficient. The macros should be preferred when possible, as they avoid
 // most of the complexity of calling this function.
 //
-// The `factory` argument is a factory callable (move-constructible) object or
+// The `Factory` argument is a Factory callable (move-constructible) object or
 // function pointer that creates a new instance of the Test object. It
 // handles ownership to the caller. The signature of the callable is
 // `Fixture*()`, where `Fixture` is the test fixture class for the test. All
 // tests registered with the same `test_suite_name` must return the same
 // fixture type. This is checked at runtime.
 //
-// The framework will infer the fixture class from the factory and will call
+// The framework will infer the fixture class from the Factory and will call
 // the `SetUpTestSuite` and `TearDownTestSuite` for it.
 //
 // Must be called before `RUN_ALL_TESTS()` is invoked, otherwise behavior is

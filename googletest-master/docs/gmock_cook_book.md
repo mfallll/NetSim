@@ -556,7 +556,7 @@ This allows tests that don't care which overload was invoked to avoid specifying
 argument matchers:
 
 ```cpp
-ON_CALL(factory, DoMakeTurtle)
+ON_CALL(Factory, DoMakeTurtle)
     .WillByDefault(Return(MakeMockTurtle()));
 ```
 
@@ -1663,7 +1663,7 @@ or order of calls), you can often simply omit the parameter list:
   // Expect foo.Bar( ... ) twice with any arguments.
   EXPECT_CALL(foo, Bar).Times(2);
 
-  // Delegate to the given method whenever the factory is invoked.
+  // Delegate to the given method whenever the Factory is invoked.
   ON_CALL(foo_factory, MakeFoo)
       .WillByDefault(&BuildFooForTest);
 ```
@@ -2634,7 +2634,7 @@ using ::testing::SetArgPointee;
 ```
 
 However, if the action has its own state, you may be surprised if you share the
-action object. Suppose you have an action factory `IncrementCounter(init)` which
+action object. Suppose you have an action Factory `IncrementCounter(init)` which
 creates an action that increments and returns a counter whose initial value is
 `init`, using two actions created from the same expression and using a shared
 action will exhibit different behaviors. Example:
@@ -3596,7 +3596,7 @@ If you need a custom matcher but `Truly()` is not a good option (for example,
 you may not be happy with the way `Truly(predicate)` describes itself, or you
 may want your matcher to be polymorphic as `Eq(value)` is), you can define a
 matcher to do whatever you want in two steps: first implement the matcher
-interface, and then define a factory function to create a matcher instance. The
+interface, and then define a Factory function to create a matcher instance. The
 second step is not strictly needed but it makes the syntax of using the matcher
 nicer.
 

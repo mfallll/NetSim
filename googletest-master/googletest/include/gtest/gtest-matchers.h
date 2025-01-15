@@ -72,7 +72,7 @@ namespace testing {
 //     void DescribeTo(std::ostream*);
 //     void DescribeNegationTo(std::ostream*);
 //
-//   2. a factory function that creates a Matcher<T> object from a
+//   2. a Factory function that creates a Matcher<T> object from a
 //      FooMatcherMatcher.
 
 class MatchResultListener {

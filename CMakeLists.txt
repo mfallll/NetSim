@@ -17,7 +17,7 @@ include_directories(
 set(SOURCE_FILES
         src/package.cpp
         src/storage_types.cpp
-        src/factory.cpp
+        src/Factory.cpp
         # Chyba powinny być załączone, ale to się sprawdzi jeszcze XD
         src/nodes.cpp
         src/helpers.cpp

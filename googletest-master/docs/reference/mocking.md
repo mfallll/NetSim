@@ -425,7 +425,7 @@ default value:
 // Sets the default value to be returned. T must be copy constructible.
 DefaultValue<T>::Set(value);
 
-// Sets a factory. Will be invoked on demand. T must be move constructible.
+// Sets a Factory. Will be invoked on demand. T must be move constructible.
 T MakeT();
 DefaultValue<T>::SetFactory(&MakeT);
 

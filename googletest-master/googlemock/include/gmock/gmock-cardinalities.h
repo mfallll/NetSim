@@ -55,7 +55,7 @@ namespace testing {
 // To implement a cardinality Foo, define:
 //   1. a class FooCardinality that implements the
 //      CardinalityInterface interface, and
-//   2. a factory function that creates a Cardinality object from a
+//   2. a Factory function that creates a Cardinality object from a
 //      const FooCardinality*.
 //
 // The two-level delegation design follows that of Matcher, providing
