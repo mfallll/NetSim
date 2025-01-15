@@ -34,8 +34,8 @@ public:
 
     void add(const Node& node) { nodes.push_back(node); }
     std::size_t size() const { return nodes.size(); }
-    container_t::iterator find_by_id(ElementID id);
-    container_t::const_iterator find_by_id(ElementID id) const;
+    iterator find_by_id(ElementID id);
+    const_iterator find_by_id(ElementID id) const;
     void remove_by_id(ElementID id);
 
 private:
