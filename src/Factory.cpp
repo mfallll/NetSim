@@ -125,3 +125,26 @@ Factory load_factory_structure(std::istream& is){
     }
     return factory;
 }
+
+void save_factory_structure(Factory& factory, std::ostream& os){
+    std::stringstream str;
+    //RAMP
+    std::for_each(factory.ramp_cbegin(), factory.ramp_cend(), [&](const Ramp& ramp){
+        ElementID id_ramp = ramp.get_id();
+        TimeOffset delivery_interval = ramp.get_delivery_interval();
+        os <<"LOADING_RAMP id="<<id_ramp<<' '<<
+        "delivery_interval="<<delivery_interval<<'\n';
+
+    });
+
+    //WORKER
+    std::for_each(factory.worker_cbegin(), factory.worker_cend(), [&](const Worker& worker){
+        ElementID id_ramp = worker.get_id();
+        TimeOffset processing_duration = worker.get_processing_duration();
+        //queretype tiruriru
+
+        os <<"LOADING_RAMP id="<<id_ramp<<' '<<
+           "processing-time="<<processing_duration<<'\n';
+
+    });
+}
