@@ -1,6 +1,17 @@
 #include "Factory.hpp"
 #include <unique>
 
+std::string queue_type_to_str(PackageQueueType package_queue_type){
+    switch(package_queue_type){
+        case PackageQueueType::LIFO: {
+            return "LIFO";
+        }
+        case PackageQueueType::FIFO: {
+            return "FIFO";
+        }
+    }
+    return "";
+}
 
 Factory::Factory() {
     //potrrzebuje zmiany
@@ -134,14 +145,24 @@ void save_factory_structure(Factory& factory, std::ostream& os){
 
     });
 
-    //WORKER
+    //WORKER still problem z queuetype dalej czemu to wirtualne jest
     std::for_each(factory.worker_cbegin(), factory.worker_cend(), [&](const Worker& worker){
-        ElementID id_ramp = worker.get_id();
+        ElementID id_worker = worker.get_id();
         TimeOffset processing_duration = worker.get_processing_duration();
-        //queretype tiruriru
+        PackageQueueType package_queue_type = worker.get_queue();
 
-        os <<"LOADING_RAMP id="<<id_ramp<<' '<<
-           "processing-time="<<processing_duration<<'\n';
+        os <<"WORKER id="<<id_worker<<' '<<
+           "processing-time="<<processing_duration<<' '
+           <<"queue-type="<<queue_type_to_str(package_queue_type)<<'\n';
 
     });
+
+    //STOREHOUSE
+    std::for_each(factory.storehouse_cbegin(), factory.storehouse_cend(), [&](const Storehouse& storehouse){
+        ElementID  id_storehouse = storehouse.get_id();
+        os <<"STOREHOUSE id="<<id_storehouse<<'\n';
+    });
+
+    //LINK
+    //nie ma lols
 }
