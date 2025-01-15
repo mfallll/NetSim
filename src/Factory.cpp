@@ -1,6 +1,16 @@
 #include "Factory.hpp"
-#include <unique>
 
+std::string queue_type_to_str(PackageQueueType package_queue_type){
+    switch(package_queue_type){
+        case PackageQueueType::LIFO: {
+            return "LIFO";
+        }
+        case PackageQueueType::FIFO: {
+            return "FIFO";
+        }
+    }
+    return "";
+}
 
 Factory::Factory() {
     //potrrzebuje zmiany
@@ -112,7 +122,7 @@ Factory load_factory_structure(std::istream& is){
             //jakas kraksa again, ta sama wlasciwie
             case ElementType::STOREHOUSE:{
                 ElementID element_id = std::stoi(parsed_line.parameters.at("id"));
-                Storehouse storehouse(element_id)
+                Storehouse storehouse(element_id);
                 factory.add_storehouse(std::move(storehouse));
                 break;
             }
@@ -137,14 +147,15 @@ void save_factory_structure(Factory& factory, std::ostream& os){
 
     });
 
-    //WORKER
+    //WORKER still problem z queuetype
     std::for_each(factory.worker_cbegin(), factory.worker_cend(), [&](const Worker& worker){
         ElementID id_ramp = worker.get_id();
         TimeOffset processing_duration = worker.get_processing_duration();
-        //queretype tiruriru
+        PackageQueueType package_queue_type = worker.get_queue();
 
         os <<"LOADING_RAMP id="<<id_ramp<<' '<<
-           "processing-time="<<processing_duration<<'\n';
+           "processing-time="<<processing_duration<<' '
+           <<"queue-type="<<queue_type_to_str(package_queue_type)<<'\n';
 
     });
 }
