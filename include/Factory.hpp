@@ -34,8 +34,8 @@ public:
 
     void add(Node&& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
-    iterator find_by_id(ElementID id) {std::find_if(nodes.cbegin(), nodes.cend(), [id](const Node& node){ return id == node.get_id(); });}
-    const_iterator find_by_id(ElementID id) const { std::find_if(nodes.cbegin(), nodes.cend(), [id](Node node){ return id == node.get_id(); });};
+    iterator find_by_id(ElementID id) { return std::find_if(nodes.begin(), nodes.end(), [id](const Node& node){ return id == node.get_id(); });}
+    const_iterator find_by_id(ElementID id) const { return std::find_if(nodes.cbegin(), nodes.cend(), [id](const Node& node){ return id == node.get_id(); });};
     void remove_by_id(ElementID id){}
 
 private:

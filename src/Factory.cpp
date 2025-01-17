@@ -30,7 +30,7 @@ bool Factory::is_consistent() {
 //    dla każdej rampy `rampa` w kolekcji wszystkich ramp w sieci:
 //    czy_nadawca_posiada_osiągalny_magazyn(rampa, kolor)
 //    w przeciwnym razie:
-//    zwróć PRAWDA  /* tj. sieć jest spójna */
+//    zwróć PRAWDA  /* tj. sieć jest spójna */ xd
 
 
     return false;
