@@ -34,14 +34,13 @@ public:
 
     void add(Node&& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
-    iterator find_by_id(ElementID id) { return std::find_if(nodes.begin(), nodes.end(), [id](const Node& node){ return id == node.get_id(); });}
+    iterator find_by_id(ElementID id) {return std::find_if(nodes.begin(), nodes.end(), [id](const Node& node){ return id == node.get_id(); });}
     const_iterator find_by_id(ElementID id) const { return std::find_if(nodes.cbegin(), nodes.cend(), [id](const Node& node){ return id == node.get_id(); });};
     void remove_by_id(ElementID id){}
 
 private:
     container_t nodes;
 };
-
 
 
 enum class ElementType{
@@ -55,7 +54,8 @@ struct ParsedLineData{
 
 class Factory{
 public:
-    Factory();
+    Factory() = default;
+
     bool is_consistent();       // Sprawdzenie spójnosci
     void do_deliveries();       // Odwolanie do rampy
     void do_package_passing();  // odwolanie do przekazywania polproduktow
@@ -64,7 +64,7 @@ public:
     void add_ramp(Ramp&& rmp){RampCont.add(std::move(rmp));}
     void remove_ramp(ElementID id){RampCont.remove_by_id(id);}
     NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id){return RampCont.find_by_id(id);}
-    //NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) {return RampCont.find_by_id(id);}
+//    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const {return RampCont.find_by_id(id);}
     NodeCollection<Ramp>::const_iterator ramp_cbegin(){RampCont.cbegin();}
     NodeCollection<Ramp>::const_iterator ramp_cend(){RampCont.cend();}
 

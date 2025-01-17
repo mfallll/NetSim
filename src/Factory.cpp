@@ -13,9 +13,6 @@ std::string queue_type_to_str(PackageQueueType package_queue_type){
     return "";
 }
 
-Factory::Factory() {
-    //potrrzebuje zmiany
-}
 //
 bool Factory::is_consistent() {
     /* Użyj algorytmu DFS do przejścia grafu, dla każdej rampy. */
