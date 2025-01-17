@@ -38,7 +38,7 @@ bool Factory::is_consistent() {
 //    dla każdej rampy `rampa` w kolekcji wszystkich ramp w sieci:
 //    czy_nadawca_posiada_osiągalny_magazyn(rampa, kolor)
 //    w przeciwnym razie:
-//    zwróć PRAWDA  /* tj. sieć jest spójna */
+//    zwróć PRAWDA  /* tj. sieć jest spójna */ xd
 
     for(const auto& i : RampCont){
         if(!this->has_reachable_storehouse(&i, node_colors)) {
@@ -49,16 +49,25 @@ bool Factory::is_consistent() {
     return true;
 }
 
-void Factory::do_deliveries() {
-
+void Factory::do_deliveries(Time t) {
+    for (auto &ramp : RampCont) {
+        ramp.deliver_goods(t);
+    }
 }
 
 void Factory::do_package_passing() {
-
+    for (auto &ramp : RampCont) {
+        ramp.send_package();
+    }
+    for (auto &worker : WorkerCont) {
+        worker.send_package();
+    }
 }
 
-void Factory::do_work() {
-
+void Factory::do_work(Time t) {
+    for (auto &worker : WorkerCont) {
+        worker.do_work(t);
+    }
 }
 
 bool Factory::has_reachable_storehouse(const PackageSender *sender,
