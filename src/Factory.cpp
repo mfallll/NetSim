@@ -39,7 +39,7 @@ bool Factory::is_consistent() {
 //    czy_nadawca_posiada_osiągalny_magazyn(rampa, kolor)
 //    w przeciwnym razie:
 //    zwróć PRAWDA  /* tj. sieć jest spójna */ xd
-
+    // TODO catch wyjatki
     for(const auto& i : RampCont){
         if(!this->has_reachable_storehouse(&i, node_colors)) {
             return false;
@@ -72,39 +72,55 @@ void Factory::do_work(Time t) {
 
 bool Factory::has_reachable_storehouse(const PackageSender *sender,
                                        std::map<const PackageSender *, NodeColor> &node_colors) {
-    switch(node_colors[sender]){
+
+    bool has_not_self_receiver = false;
+
+    switch(node_colors[sender]) {
         case NodeColor::VERIFIED:
             return true;
-        case NodeColor::VISITED:
-            if(sender->receiver_preferences_.get_preferences().empty()){
-               //TODO wyjątek
+        default:
+            node_colors[sender] = NodeColor::VISITED;
+            if (sender->receiver_preferences_.get_preferences().empty()) {
+                return false;
             }
-            bool has_not_self_receiver = false;
-            for(const auto& i : sender->receiver_preferences_.get_preferences()){
-                if(i.first->get_receiver_type() == ReceiverType::STOREHOUSE){
-                    has_not_self_receiver = true;
-                }else if(i.first->get_receiver_type() == ReceiverType::STOREHOUSE){
-                    IPackageReceiver* receiver_ptr = i.first;
-                    auto worker_ptr = dynamic_cast<Worker*>(receiver_ptr);
-                    auto sendrecv_ptr = dynamic_cast<PackageSender*>(worker_ptr);
 
-                    if(sendrecv_ptr == sender){
+            for (const auto &i: sender->receiver_preferences_.get_preferences()) {
+                if (i.first->get_receiver_type() == ReceiverType::STOREHOUSE) {
+                    has_not_self_receiver = true;
+                } else if (i.first->get_receiver_type() == ReceiverType::WORKER) {
+                    IPackageReceiver *receiver_ptr = i.first;
+                    auto worker_ptr = dynamic_cast<Worker *>(receiver_ptr);
+                    auto sendrecv_ptr = dynamic_cast<PackageSender *>(worker_ptr);
+
+                    if (sendrecv_ptr == sender) {
                         has_not_self_receiver = true;
                     }
                     bool ret;
-                    if(node_colors[sendrecv_ptr] == NodeColor::UNVISITED){
+                    if (node_colors[sendrecv_ptr] == NodeColor::UNVISITED) {
                         ret = has_reachable_storehouse(sendrecv_ptr, node_colors);
                     }
                     node_colors[sender] = NodeColor::VERIFIED;
-                    if(ret){
+                    if (ret) {
                         return true;
-                    }else{
-                        //TODO wyjatek
+                    } else {
+                        return false;
                     }
                 }
             }
 
     }
+    return has_not_self_receiver;
+}
+
+void Factory::remove_worker(ElementID id) {
+    for(auto& ramp : RampCont){
+        ramp.receiver_preferences_.remove_receiver(&(*find_worker_by_id(id)));
+    }
+    for(auto& worker : WorkerCont){
+        worker.receiver_preferences_.remove_receiver(&(*find_worker_by_id(id)));
+    }
+
+    WorkerCont.remove_by_id(id);
 }
 
 std::vector<std::string> split(const std::string& str, char delimiter)

@@ -14,14 +14,12 @@
 #include <deque>
 #include <map>
 #include <stack>
+#include <vector>
 
-
-#include <vector> // Przykład z std::vector jako std_container_t xd
-
-template <typename Node, template <typename> class std_container_t = std::vector>
+template <typename Node>
 class NodeCollection {
 public:
-    using container_t = std_container_t<Node>;
+    using container_t = typename std::vector<Node>;
     using iterator = typename container_t::iterator;
     using const_iterator = typename container_t::const_iterator;
 
@@ -34,14 +32,22 @@ public:
 
     void add(Node&& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
-    iterator find_by_id(ElementID id) {return std::find_if(nodes.begin(), nodes.end(), [id](const Node& node){ return id == node.get_id(); });}
+    iterator find_by_id(ElementID id) {return std::find_if(nodes.begin(), nodes.end(), [id](Node& node){ return id == node.get_id(); });}
     const_iterator find_by_id(ElementID id) const { return std::find_if(nodes.cbegin(), nodes.cend(), [id](const Node& node){ return id == node.get_id(); });};
-    void remove_by_id(ElementID id){}
+    void remove_by_id(ElementID id);
 
 private:
     container_t nodes;
 
 };
+
+template<typename Node>
+void NodeCollection<Node>::remove_by_id(ElementID id)  {
+    auto it = find_by_id(id);
+    if (it != nodes.end()) {
+        this->nodes.erase(it);
+    }
+}
 
 
 enum class ElementType{
@@ -71,7 +77,7 @@ public:
     NodeCollection<Ramp>::const_iterator ramp_cend(){RampCont.cend();}
 
     void add_worker(Worker&& wrk){WorkerCont.add(std::move(wrk));}
-    void remove_worker(ElementID id){WorkerCont.remove_by_id(id);}
+    void remove_worker(ElementID id);
     NodeCollection<Worker>::iterator find_worker_by_id(ElementID id){return WorkerCont.find_by_id(id);}
     NodeCollection<Worker>::const_iterator find_worker_by_id(ElementID id) const {return WorkerCont.find_by_id(id);}
     NodeCollection<Worker>::const_iterator worker_cbegin(){WorkerCont.cbegin();}

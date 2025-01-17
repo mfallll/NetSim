@@ -81,12 +81,17 @@ class Ramp : public PackageSender {
 public:
     Ramp(ElementID id, TimeOffset di) : PackageSender(), id_(id), di_(di) {}
     Ramp(Ramp &&ramp) : id_(ramp.id_), di_(ramp.di_), buffer_(std::move(ramp.buffer_)), t_(ramp.t_) {}
-    Ramp(Ramp &ramp) = delete; //  (jakby awaryjnie byl potrzebny)  : id_(ramp.id_), di_(ramp.di_), buffer_(std::nullopt), t_(ramp.t_) {}
-    Ramp& operator=(Ramp&) = delete;
+    Ramp(Ramp &ramp) : id_(ramp.id_), di_(ramp.di_), buffer_(std::nullopt), t_(ramp.t_) {}
+    Ramp() : id_(0), di_(0), buffer_(std::nullopt), t_(0) {} // for deletion only
+    Ramp& operator=(const Ramp& other) {
+        if (this != &other) {
+            id_ = other.id_;
+            di_ = other.di_;
+            buffer_ = std::nullopt;
+        }
+        return *this;
+    }
     ~Ramp() = default;
-    //Ramp(const Ramp& ramp) : id_(ramp.id_), di_(ramp.di_), buffer_(ramp.buffer_), t_(ramp.t_) {}
-
-//Ramp(Ramp &ramp) = default;
     void deliver_goods(Time t);
     TimeOffset get_delivery_interval() const { return di_; }
     ElementID get_id() const { return id_; }
@@ -100,9 +105,19 @@ private:
 class Worker : public IPackageReceiver, public PackageSender{
 public:
     Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q);
-    Worker(Worker& wrk) = delete;
+    Worker() : id_(0), pd_(0), q_(nullptr){} // for deletion only
     Worker(Worker&& wrk) : id_(std::move(wrk.id_)), pd_(std::move(wrk.pd_)), q_(std::move(wrk.q_)), t_(std::move(wrk.t_)) {}
 
+    Worker(Worker &work) : id_(work.id_), pd_(work.pd_), t_(work.t_), q_(nullptr) {}
+    Worker& operator=(const Worker& other) {
+        if (this != &other) {
+            id_ = other.id_;
+            pd_ = other.pd_;
+            t_  = other.t_;
+            q_  = nullptr;
+        }
+        return *this;
+    }
 
     void receive_package(Package &&p) override {q_->push(std::move(p));}
     [[nodiscard]] ElementID get_id() const override {return id_; };
@@ -130,6 +145,7 @@ private:
 class Storehouse : public IPackageReceiver{
 public:
     Storehouse(ElementID id)  : id_(id), d_(new PackageQueue(PackageQueueType::FIFO)) {}
+    Storehouse()  : id_(0), d_(new PackageQueue(PackageQueueType::FIFO)) {} // for deletion only
     Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d) : id_(id), d_(std::move(d)) {}
     void receive_package(Package&& p) override;
     [[nodiscard]] ElementID get_id() const override {return id_; }
