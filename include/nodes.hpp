@@ -78,7 +78,12 @@ class Ramp : public PackageSender {
 public:
     Ramp(ElementID id, TimeOffset di) : PackageSender(), id_(id), di_(di) {}
     Ramp(Ramp &&ramp) : id_(ramp.id_), di_(ramp.di_), buffer_(std::move(ramp.buffer_)), t_(ramp.t_) {}
-    Ramp(Ramp &ramp) = default;
+    Ramp(Ramp&) = delete; // Konstruktor kopiujący usunięty
+    Ramp& operator=(Ramp&) = delete; // Operator przypisania również usunięty
+    ~Ramp() = default;
+    //Ramp(const Ramp& ramp) : id_(ramp.id_), di_(ramp.di_), buffer_(ramp.buffer_), t_(ramp.t_) {}
+
+//Ramp(Ramp &ramp) = default;
     void deliver_goods(Time t);
     TimeOffset get_delivery_interval() const { return di_; }
     ElementID get_id() const { return id_; }
@@ -92,6 +97,8 @@ private:
 class Worker : public IPackageReceiver, public PackageSender{
 public:
     Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q);
+    Worker(Worker& wrk) = delete;
+    Worker(Worker&& wrk) : id_(std::move(wrk.id_)), pd_(std::move(wrk.pd_)), q_(std::move(wrk.q_)), t_(std::move(wrk.t_)) {}
 
 
     void receive_package(Package &&p) override {q_->push(std::move(p));}

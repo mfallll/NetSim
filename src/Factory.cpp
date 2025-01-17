@@ -1,5 +1,5 @@
 #include "Factory.hpp"
-#include <unique>
+//#include <unique>
 
 std::string queue_type_to_str(PackageQueueType package_queue_type){
     switch(package_queue_type){
@@ -149,7 +149,7 @@ void save_factory_structure(Factory& factory, std::ostream& os){
     std::for_each(factory.worker_cbegin(), factory.worker_cend(), [&](const Worker& worker){
         ElementID id_worker = worker.get_id();
         TimeOffset processing_duration = worker.get_processing_duration();
-        PackageQueueType package_queue_type = worker.get_queue();
+        PackageQueueType package_queue_type = worker.get_queue()->get_queue_type();
 
         os <<"WORKER id="<<id_worker<<' '<<
            "processing-time="<<processing_duration<<' '
