@@ -61,6 +61,8 @@ class ReceiverPreferences {
     ProbabilityGenerator probabilty_;
 };
 
+
+
 class PackageSender {
 public:
     ReceiverPreferences receiver_preferences_;
@@ -68,6 +70,7 @@ public:
     PackageSender(PackageSender &&package_sender) = default;
     void send_package();
     const std::optional<Package>& get_sending_buffer() const { return buffer_; }
+
 protected:
     void push_package(Package &&package) { buffer_.emplace(package.get_id()); }
 private:

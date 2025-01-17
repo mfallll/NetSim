@@ -40,6 +40,7 @@ public:
 
 private:
     container_t nodes;
+
 };
 
 
@@ -52,6 +53,7 @@ struct ParsedLineData{
     std::map<std::string, std::string> parameters;
 };
 
+enum class NodeColor { UNVISITED, VISITED, VERIFIED };
 class Factory{
 public:
     Factory() = default;
@@ -64,27 +66,30 @@ public:
     void add_ramp(Ramp&& rmp){RampCont.add(std::move(rmp));}
     void remove_ramp(ElementID id){RampCont.remove_by_id(id);}
     NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id){return RampCont.find_by_id(id);}
-//    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const {return RampCont.find_by_id(id);}
+    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const {return RampCont.find_by_id(id);}
     NodeCollection<Ramp>::const_iterator ramp_cbegin(){RampCont.cbegin();}
     NodeCollection<Ramp>::const_iterator ramp_cend(){RampCont.cend();}
 
     void add_worker(Worker&& wrk){WorkerCont.add(std::move(wrk));}
     void remove_worker(ElementID id){WorkerCont.remove_by_id(id);}
     NodeCollection<Worker>::iterator find_worker_by_id(ElementID id){return WorkerCont.find_by_id(id);}
-//    NodeCollection<Worker>::const_iterator find_worker_by_id(ElementID id) const {return WorkerCont.find_by_id(id);}
+    NodeCollection<Worker>::const_iterator find_worker_by_id(ElementID id) const {return WorkerCont.find_by_id(id);}
     NodeCollection<Worker>::const_iterator worker_cbegin(){WorkerCont.cbegin();}
     NodeCollection<Worker>::const_iterator worker_cend(){WorkerCont.cend();}
 
     void add_storehouse(Storehouse&& str){StorehouseCont.add(std::move(str));}
     void remove_storehouse(ElementID id){StorehouseCont.remove_by_id(id);}
     NodeCollection<Storehouse>::iterator find_storehouse_by_id(ElementID id) {return StorehouseCont.find_by_id(id);}
-//    NodeCollection<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const {return StorehouseCont.find_by_id(id);}
+    NodeCollection<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const {return StorehouseCont.find_by_id(id);}
     NodeCollection<Storehouse>::const_iterator storehouse_cbegin() const {StorehouseCont.cbegin();}
     NodeCollection<Storehouse>::const_iterator storehouse_cend() const {StorehouseCont.cend();}
 private:
     NodeCollection<Ramp> RampCont;
     NodeCollection<Worker> WorkerCont;
     NodeCollection<Storehouse> StorehouseCont;
+
+
+    bool has_reachable_storehouse(const PackageSender* sender, std::map<const PackageSender*, NodeColor>& node_colors);
 };
 
 ParsedLineData parse_line(std::string& line);
