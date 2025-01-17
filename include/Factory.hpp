@@ -34,9 +34,9 @@ public:
 
     void add(Node&& node) { nodes.push_back(std::move(node)); }
     std::size_t size() const { return nodes.size(); }
-    iterator find_by_id(ElementID id) { std::find_if(nodes.cbegin(), nodes.cend(), [id](Node& node){ return id == node.get_id(); });};
-    const_iterator find_by_id(ElementID id) const { std::find_if(nodes.cbegin(), nodes.cend(), [id](Node& node){ return id == node.get_id(); });};
-    void remove_by_id(ElementID id);
+    iterator find_by_id(ElementID id) {std::find_if(nodes.cbegin(), nodes.cend(), [id](const Node& node){ return id == node.get_id(); });}
+    const_iterator find_by_id(ElementID id) const { std::find_if(nodes.cbegin(), nodes.cend(), [id](Node node){ return id == node.get_id(); });};
+    void remove_by_id(ElementID id){}
 
 private:
     container_t nodes;
@@ -64,21 +64,21 @@ public:
     void add_ramp(Ramp&& rmp){RampCont.add(std::move(rmp));}
     void remove_ramp(ElementID id){RampCont.remove_by_id(id);}
     NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id){return RampCont.find_by_id(id);}
-    NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const {return RampCont.find_by_id(id);}
+    //NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) {return RampCont.find_by_id(id);}
     NodeCollection<Ramp>::const_iterator ramp_cbegin(){RampCont.cbegin();}
     NodeCollection<Ramp>::const_iterator ramp_cend(){RampCont.cend();}
 
     void add_worker(Worker&& wrk){WorkerCont.add(std::move(wrk));}
     void remove_worker(ElementID id){WorkerCont.remove_by_id(id);}
     NodeCollection<Worker>::iterator find_worker_by_id(ElementID id){return WorkerCont.find_by_id(id);}
-    NodeCollection<Worker>::const_iterator find_worker_by_id(ElementID id) const {return WorkerCont.find_by_id(id);}
+//    NodeCollection<Worker>::const_iterator find_worker_by_id(ElementID id) const {return WorkerCont.find_by_id(id);}
     NodeCollection<Worker>::const_iterator worker_cbegin(){WorkerCont.cbegin();}
     NodeCollection<Worker>::const_iterator worker_cend(){WorkerCont.cend();}
 
     void add_storehouse(Storehouse&& str){StorehouseCont.add(std::move(str));}
     void remove_storehouse(ElementID id){StorehouseCont.remove_by_id(id);}
     NodeCollection<Storehouse>::iterator find_storehouse_by_id(ElementID id) {return StorehouseCont.find_by_id(id);}
-    NodeCollection<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const {return StorehouseCont.find_by_id(id);}
+//    NodeCollection<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const {return StorehouseCont.find_by_id(id);}
     NodeCollection<Storehouse>::const_iterator storehouse_cbegin() const {StorehouseCont.cbegin();}
     NodeCollection<Storehouse>::const_iterator storehouse_cend() const {StorehouseCont.cend();}
 private:

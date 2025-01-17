@@ -78,8 +78,8 @@ class Ramp : public PackageSender {
 public:
     Ramp(ElementID id, TimeOffset di) : PackageSender(), id_(id), di_(di) {}
     Ramp(Ramp &&ramp) : id_(ramp.id_), di_(ramp.di_), buffer_(std::move(ramp.buffer_)), t_(ramp.t_) {}
-    Ramp(Ramp&) = delete; // Konstruktor kopiujący usunięty
-    Ramp& operator=(Ramp&) = delete; // Operator przypisania również usunięty
+    Ramp(Ramp &ramp) = delete; //  (jakby awaryjnie byl potrzebny)  : id_(ramp.id_), di_(ramp.di_), buffer_(std::nullopt), t_(ramp.t_) {}
+    Ramp& operator=(Ramp&) = delete;
     ~Ramp() = default;
     //Ramp(const Ramp& ramp) : id_(ramp.id_), di_(ramp.di_), buffer_(ramp.buffer_), t_(ramp.t_) {}
 
