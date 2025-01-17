@@ -57,9 +57,9 @@ public:
     Factory() = default;
 
     bool is_consistent();       // Sprawdzenie spójnosci
-    void do_deliveries();       // Odwolanie do rampy
+    void do_deliveries(Time t);       // Odwolanie do rampy
     void do_package_passing();  // odwolanie do przekazywania polproduktow
-    void do_work();             // odwolanie do robotnikow
+    void do_work(Time t);             // odwolanie do robotnikow
 
     void add_ramp(Ramp&& rmp){RampCont.add(std::move(rmp));}
     void remove_ramp(ElementID id){RampCont.remove_by_id(id);}

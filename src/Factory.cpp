@@ -33,16 +33,25 @@ bool Factory::is_consistent() {
     return false;
 }
 
-void Factory::do_deliveries() {
-
+void Factory::do_deliveries(Time t) {
+    for (auto &ramp : RampCont) {
+        ramp.deliver_goods(t);
+    }
 }
 
 void Factory::do_package_passing() {
-
+    for (auto &ramp : RampCont) {
+        ramp.send_package();
+    }
+    for (auto &worker : WorkerCont) {
+        worker.send_package();
+    }
 }
 
-void Factory::do_work() {
-
+void Factory::do_work(Time t) {
+    for (auto &worker : WorkerCont) {
+        worker.do_work(t);
+    }
 }
 
 std::vector<std::string> split(const std::string& str, char delimiter)
