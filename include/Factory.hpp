@@ -74,22 +74,22 @@ public:
     void remove_ramp(ElementID id){RampCont.remove_by_id(id);}
     NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id){return RampCont.find_by_id(id);}
     NodeCollection<Ramp>::const_iterator find_ramp_by_id(ElementID id) const {return RampCont.find_by_id(id);}
-    NodeCollection<Ramp>::const_iterator ramp_cbegin(){RampCont.cbegin();}
-    NodeCollection<Ramp>::const_iterator ramp_cend(){RampCont.cend();}
+    NodeCollection<Ramp>::const_iterator ramp_cbegin() const {return RampCont.cbegin();}
+    NodeCollection<Ramp>::const_iterator ramp_cend() const {return RampCont.cend();}
 
     void add_worker(Worker&& wrk){WorkerCont.add(std::move(wrk));}
     void remove_worker(ElementID id);
     NodeCollection<Worker>::iterator find_worker_by_id(ElementID id){return WorkerCont.find_by_id(id);}
     NodeCollection<Worker>::const_iterator find_worker_by_id(ElementID id) const {return WorkerCont.find_by_id(id);}
-    NodeCollection<Worker>::const_iterator worker_cbegin(){WorkerCont.cbegin();}
-    NodeCollection<Worker>::const_iterator worker_cend(){WorkerCont.cend();}
+    NodeCollection<Worker>::const_iterator worker_cbegin() const {return WorkerCont.cbegin();}
+    NodeCollection<Worker>::const_iterator worker_cend() const {return WorkerCont.cend();}
 
     void add_storehouse(Storehouse&& str){StorehouseCont.add(std::move(str));}
     void remove_storehouse(ElementID id){StorehouseCont.remove_by_id(id);}
     NodeCollection<Storehouse>::iterator find_storehouse_by_id(ElementID id) {return StorehouseCont.find_by_id(id);}
     NodeCollection<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const {return StorehouseCont.find_by_id(id);}
-    NodeCollection<Storehouse>::const_iterator storehouse_cbegin() const {StorehouseCont.cbegin();}
-    NodeCollection<Storehouse>::const_iterator storehouse_cend() const {StorehouseCont.cend();}
+    NodeCollection<Storehouse>::const_iterator storehouse_cbegin() const {return StorehouseCont.cbegin();}
+    NodeCollection<Storehouse>::const_iterator storehouse_cend() const {return StorehouseCont.cend();}
 private:
     NodeCollection<Ramp> RampCont;
     NodeCollection<Worker> WorkerCont;
