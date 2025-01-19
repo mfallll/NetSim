@@ -19,7 +19,7 @@
 template <typename Node>
 class NodeCollection {
 public:
-    using container_t = typename std::vector<Node>;
+    using container_t = typename std::list<Node>;
     using iterator = typename container_t::iterator;
     using const_iterator = typename container_t::const_iterator;
 
@@ -35,6 +35,7 @@ public:
     iterator find_by_id(ElementID id) {return std::find_if(nodes.begin(), nodes.end(), [id](Node& node){ return id == node.get_id(); });}
     const_iterator find_by_id(ElementID id) const { return std::find_if(nodes.cbegin(), nodes.cend(), [id](const Node& node){ return id == node.get_id(); });};
     void remove_by_id(ElementID id);
+    //void remove_by_id(ElementID id) { nodes.remove_if([id](const Node& elem) { return elem.get_id() == id; }); }
 
 private:
     container_t nodes;

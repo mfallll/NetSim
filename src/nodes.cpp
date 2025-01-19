@@ -15,10 +15,10 @@ void ReceiverPreferences::add_receiver(IPackageReceiver *r){
 }
 
 void ReceiverPreferences::remove_receiver(IPackageReceiver *r){
-    int size = preferences_.size();
+    std::size_t size = preferences_.size();
     if (size >1){
         for (auto &pref : preferences_){
-            pref.second = 1/(size-1);
+            pref.second = (double)1/(size-1);
         }
     }
     preferences_.erase(r);
